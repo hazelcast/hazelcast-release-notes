@@ -55,6 +55,37 @@ https://github.com/hazelcast/hazelcast/pull/17113[#17113]
 The following are the other improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
 
+* Added the support for checking duplicate fields when building
+class definitions.
+https://github.com/hazelcast/hazelcast/pull/17682[#17682]
+* Added the support for IList with nullable items to the client protocol.
+https://github.com/hazelcast/hazelcast/pull/17690[#17690]
+* Added the client name tag to the client related metrics.
+https://github.com/hazelcast/hazelcast/pull/17654[#17654]
+* Added the support for `DEFAULT` in the SQL expressions.
+https://github.com/hazelcast/hazelcast/pull/17625[#17625]
+* Added a check for IMap `READ` permissions for the maps involved in the
+SQL query executions.
+https://github.com/hazelcast/hazelcast/pull/17612[#17612]
+* Added the support for accessing the Hazelcast instance in the
+login modules and credential factories.
+https://github.com/hazelcast/hazelcast/pull/17605[#17605]
+* Introduced a simplified configuration of Kerberos authentication
+for simple scenarios.
+https://github.com/hazelcast/hazelcast/pull/17573[#17573]
+* Added statistics support for IBM, OpenJ9, ZGC and Shenandoah.
+https://github.com/hazelcast/hazelcast/pull/17561[#17561]
+* Introduced a state-tracking mechanism for the external configuration
+parser; all mismatched/unapplied configuration entries coming from
+environment variables or system properties are now logged.
+https://github.com/hazelcast/hazelcast/pull/17559[#17559]
+* Upgraded the Maven plugin dependencies.
+https://github.com/hazelcast/hazelcast/pull/17536[#17536]
+* Improved the performance of the `SqlResult.close()` operation
+by not creating an exception object when the SQL result is already closed.
+The exception is created only if the user calls close on
+the result set that is not closed yet.
+https://github.com/hazelcast/hazelcast/pull/17549[#17549]
 * Added support for the merge operation in IMap.
 https://github.com/hazelcast/hazelcast/pull/17419[#17419]
 * Added support for publishing CP Subsystem and CP data structure
@@ -119,6 +150,9 @@ implementation. Along with the API the following three implementations are added
 ** `ClientFailoverConfigRecognizer` for recognizing failover client XML and YAML configurations
 +
 https://github.com/hazelcast/hazelcast/pull/16958[#16958]
+* Added the `publishAll()`, `publishAllAsync()` and `publishAsync()`
+methods to ITopic.
+https://github.com/hazelcast/hazelcast/pull/16946[#16946]
 * Made the diagnostics logs more cloud-friendly so that they are sent to
 `stdout` instead of sending to local files.
 https://github.com/hazelcast/hazelcast/pull/16941[#16941]
@@ -219,10 +253,35 @@ is shutdown. Now the same situation throws `HazelcastInstanceNotActiveException`
 https://github.com/hazelcast/hazelcast/issues/17120[#17120]
 * The `TcpIpConnection` class has been renamed as `ServerConnection`.
 https://github.com/hazelcast/hazelcast/pull/16839[#16839]
+* Implemented and/or overridden the default methods in Java 8 collections,
+such as `computeIfAbsent()`, `forEach()` `compute()` and `replaceAll()` for maps.
+https://github.com/hazelcast/hazelcast/issues/14913[#14913]
 
 [[fixes-41]]
 === Fixes
 
+* Fixed an issue where the partition stamp was not being updated after
+the partition version is incremented manually.
+https://github.com/hazelcast/hazelcast/pull/17679[#17679]
+* Fixed an issue where Hazelcast was returning `false` if a client
+is successfully deregistered from any member, but events are still
+delivered for the non-deregistered ones.
+https://github.com/hazelcast/hazelcast/pull/17646[#17646]
+* Fixed an issue where the configuration was not updating entries' time-to-live
+values if the entry processor implements the `Offloadable` interface.
+https://github.com/hazelcast/hazelcast/issues/17606[#17606]
+* Fixed an issue where the scheduled executor service's `pending` count
+metric was returning negative values.
+https://github.com/hazelcast/hazelcast/pull/17558[#17558]
+* Fixed an issue where the SQL queries with expressions were failing.
+https://github.com/hazelcast/hazelcast/issues/17554[#17554]
+* Fixed an issue where the caller stacktrace was missing on the
+rethrown async runtime exceptions.
+https://github.com/hazelcast/hazelcast/pull/17546[#17546]
+* Fixed an exception that is thrown when using the entry store API and issuing
+a `put` into the IMap for an item which is not in the map but
+exists in the backing store.
+https://github.com/hazelcast/hazelcast/issues/17441[#17441]
 * Fixed an issue where the custom load balancers
 could not be configured declaratively.
 https://github.com/hazelcast/hazelcast/pull/17415[#17415]
@@ -241,6 +300,9 @@ https://github.com/hazelcast/hazelcast/pull/17153[#17153]
 * Fixed an issue where the client was stuck with an outdated
 member list after a split-brain scenario.
 https://github.com/hazelcast/hazelcast/pull/17147[#17147]
+* Fixed the member side user code deployment; it was throwing an exception
+when inner classes are used to be loaded.
+https://github.com/hazelcast/hazelcast/issues/17044[#17044]
 * Fixed the broken interoperability between the `CompletableFuture` methods.
 https://github.com/hazelcast/hazelcast/pull/17020[#17020]
 * Fixed an issue where touching a map entry having an entry processor working on it
@@ -265,6 +327,9 @@ were not handled properly.
 https://github.com/hazelcast/hazelcast/pull/16831[#16831]
 * Fixed the `NullPointerException` in `IndexCopyBehavior.NEVER` mode.
 https://github.com/hazelcast/hazelcast/pull/16784[#16784]
+* Fixed an issue where the client XML configuration could not
+properly handle the empty Near Cache name.
+https://github.com/hazelcast/hazelcast/issues/16768[#16768]
 * Fixed an issue where the client permissions for Reliable Topic and Ringbuffer
 we're missing.
 https://github.com/hazelcast/hazelcast/pull/16755[#16755]
@@ -299,6 +364,10 @@ https://github.com/hazelcast/hazelcast/issues/15100[#15100]
 were returning negative values (`size()`) when the size is more than
 `Integer.MAX_VALUE`.
 https://github.com/hazelcast/hazelcast/issues/14935[#14935]
+* Fixed an issue when a Hazelcast client calls the distributed executor service
+and the callable throws an exception with a custom type, then the exception
+was not being transported to the client.
+https://github.com/hazelcast/hazelcast/issues/9753[#9753]
 
 [[contributors-41]]
 ===  Contributors
@@ -325,3 +394,5 @@ community who worked on this release:
 * https://github.com/buraksezer[Burak Sezer]
 * https://github.com/wangumer[wangumer]
 * https://github.com/the-thing[Marcin L]
+* https://github.com/stefanbirkner[Stefan Birkner]
+* https://github.com/andrewoelfing[André Wölfing]
