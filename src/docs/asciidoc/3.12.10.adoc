@@ -1,0 +1,42 @@
+== 3.12.10
+
+[[enh-31210]]
+=== Enhancements
+
+* Added the support for checking duplicate fields when building
+class definitions.
+https://github.com/hazelcast/hazelcast/pull/17683[#17683]
+* Enhanced the tracking of missing CP subsystem members after a
+split-brain merge situation.
+https://github.com/hazelcast/hazelcast/pull/17634[#17634]
+* Added the missing validation checks to the client's connection retry
+configuration.
+https://github.com/hazelcast/hazelcast/pull/17570[#17570]
+* Upgraded the versions of Hazelcast's snakeyaml-engine and Jackson
+library dependencies to eliminate the denial of service vulnerabilities.
+https://github.com/hazelcast/hazelcast/issues/17425[#17425]
+* Added timeout values for connect and read operations to the
+Management Center service's task connection method.
+https://github.com/hazelcast/hazelcast/issues/17387[#17387]
+
+[[fixes-31210]]
+=== Fixes
+
+* Fixed an issue where Hazelcast was returning `false` if a client
+is successfully deregistered from any member, but events are still
+delivered for the non-deregistered ones.
+https://github.com/hazelcast/hazelcast/pull/17648[#17648]
+* Fixed the member side user code deployment; it was throwing an exception
+when inner classes are used to be loaded.
+https://github.com/hazelcast/hazelcast/pull/17579[#17579]
+* Fixed an issue where the load balancer for clients
+could not be configured declaratively.
+https://github.com/hazelcast/hazelcast/issues/17228[#17228]
+
+[[contributors-31210]]
+===  Contributors
+
+We would like to thank the contributors from our open source
+community who worked on this release:
+
+* https://github.com/the-thing[Marcin L]

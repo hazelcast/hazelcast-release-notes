@@ -51,6 +51,7 @@ the following properties:
 ** `hazelcast.wan.consumer.ack.delay.backoff.multiplier`
 +
 https://github.com/hazelcast/hazelcast/pull/17113[#17113]
+* **Priority Queue:** Added support for 
 
 The following are the other improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
