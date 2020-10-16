@@ -14,7 +14,8 @@ configuration.
 https://github.com/hazelcast/hazelcast/pull/17570[#17570]
 * Upgraded the versions of Hazelcast's snakeyaml-engine and Jackson
 library dependencies to eliminate the denial of service vulnerabilities.
-https://github.com/hazelcast/hazelcast/issues/17425[#17425]
+https://github.com/hazelcast/hazelcast/issues/17425[#17425],
+https://github.com/hazelcast/hazelcast/issues/17444[#17444]
 * Added timeout values for connect and read operations to the
 Management Center service's task connection method.
 https://github.com/hazelcast/hazelcast/issues/17387[#17387]
@@ -22,6 +23,13 @@ https://github.com/hazelcast/hazelcast/issues/17387[#17387]
 [[fixes-31210]]
 === Fixes
 
+* Fixed an issue where Hazelcast was not releasing the acquired lock
+sessions that fail for the reasons other than session expiration and
+wait key cancellation.
+https://github.com/hazelcast/hazelcast/pull/17701[#17701]
+* Fixed an issue where the lock requests in clients' maps with
+infinite time lease were returning `Long.MAX_VALUE`; now it returns `-1`.
+https://github.com/hazelcast/hazelcast/pull/17680[#17680]
 * Fixed an issue where Hazelcast was returning `false` if a client
 is successfully deregistered from any member, but events are still
 delivered for the non-deregistered ones.
@@ -29,6 +37,9 @@ https://github.com/hazelcast/hazelcast/pull/17648[#17648]
 * Fixed the member side user code deployment; it was throwing an exception
 when inner classes are used to be loaded.
 https://github.com/hazelcast/hazelcast/pull/17579[#17579]
+* Fixed an issue where the diagnostic plugins were not being rendered
+properly when they fail.
+https://github.com/hazelcast/hazelcast/pull/17500[#17500]
 * Fixed an issue where the load balancer for clients
 could not be configured declaratively.
 https://github.com/hazelcast/hazelcast/issues/17228[#17228]
