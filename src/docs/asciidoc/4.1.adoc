@@ -249,6 +249,8 @@ https://github.com/hazelcast/hazelcast/issues/11958[#11958]
 [[bc-41]]
 === Breaking Changes
 
+* Starting a standalone Hazelcast instance requires disabling Auto Detection joiner
+(before it required disabling Multicast joiner). https://github.com/hazelcast/hazelcast/pull/17112[#17112]
 * In a CP subsystem session, a generic `IllegalStateException` was being thrown when Hazelcast
 is shutdown. Now the same situation throws `HazelcastInstanceNotActiveException`.
 https://github.com/hazelcast/hazelcast/issues/17120[#17120]
