@@ -3,27 +3,36 @@
 [[nf-41]]
 === New Features
 
-* **Instance Tracking:** It is a feature which writes a file on the Hazelcast instance startup
-at the configured location. This file contains metadata about the instance, such as version, product name
-and process ID, and it is not deleted on the member shutdown.
-See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#instance-tracking[Instance Tracking section^].
+*_Hazelcast IMDG Open Source New Features:_*
+
 * **SQL Implementation:** Implemented the SQL engine that
 supports map scans, index scans, projections and filters.
 It also introduces the `hazelcast-sql` module to handle the
 SQL engine's dependencies on Apache Calcite.
 See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/index.html#sql[SQL section^].
-* **Automatic Detection of Discovery Strategy:** It tries to automatically detect the
-applicable discovery mechanism based on the runtime environment.
+* **Automatic Discovery Strategy Detection:** Hazelcast now automatically detects
+the cloud environment it's running on (Kubernetes, AWS, GCP or Azure) and applies
+the necessary discovery strategy for the environment. This allows automatically
+forming the Hazelcast clusters in cloud environments without any configuration.
 See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/index.html#auto-detection[Auto Detection section^].
 * **Overriding Configuration:** You can now override the configuration entries
 of your cluster without changing the declarative configuration files (XML/YAML).
 See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/index.html#overriding-configuration[Overriding Configuration section^].
-* **Auditlog:** This feature allows observing some important cluster events.
+* **Instance Tracking:** Hazelcast now writes a file on a Hazelcast member startup
+at the configured location. This file contains metadata about the member such as version, product name
+and process ID, and it is not deleted on the member shutdown.
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#instance-tracking[Instance Tracking section^].
+
+*_Hazelcast IMDG Enterprise New Features:_*
+
+* **Security Audit Logging:** This feature allows observing some important cluster events.
 Auditable events have a unique type ID, and contain a timestamp and importance level.
 See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/index.html#auditlog[Logging Auditable Events section^].
 
 [[enh-41]]
 === Enhancements
+
+*_Hazelcast IMDG Open Source Enhancements:_*
 
 * **Improvements in Partial Network Disconnections:** Introduced properties
 to be configured to detect and resolve the partial network issues among the
@@ -35,6 +44,12 @@ See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#cp-subsyste
 * **Trusted Interfaces:** It is now possible to restrict the source IP addresses
 from which the Management Center operations are allowed.
 See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#limiting-source-addresses[Limiting Source Addresses section^].
+* **Priority Queue:** Added support for the queues with comparators. Using Priority
+Queue, you can define items with higher priority to be polled first.
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#priority-queue[Priority Queue section^].
+
+*_Hazelcast IMDG Enterprise Enhancements:_*
+
 * **Out-of-the-Box Kerberos Support:** Introduced support for Kerberos
 authentication protocol which is one of the standard
 solutions for single-sign-on. It also adds the GSSAPI authentication support in
@@ -51,9 +66,6 @@ the following properties:
 ** `hazelcast.wan.consumer.ack.delay.backoff.multiplier`
 +
 https://github.com/hazelcast/hazelcast/pull/17113[#17113]
-* **Priority Queue:** Added support for the queues with comparators. Using Priority
-Queue, you can define items with higher priority to be polled first.
-See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#priority-queue[Priority Queue section^].
 
 The following are the other improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
@@ -61,9 +73,6 @@ issues opened by the Hazelcast customers/team.
 * Added the missing `replicatedmap-permission` support to the
 XML and YAML configuration handlers.
 https://github.com/hazelcast/hazelcast/pull/17812[#17812]
-* Introduced a packet flag to distinguish between the connections of
-members having the same Hazelcast version and different versions.
-https://github.com/hazelcast/hazelcast/pull/17756[#17756]
 * Replaced the word "should" with "must" in the exception messages
 to improve the user focus and indicate obligation rather than advice.
 https://github.com/hazelcast/hazelcast/pull/17710[#17710]
@@ -79,15 +88,10 @@ class definitions.
 https://github.com/hazelcast/hazelcast/pull/17682[#17682]
 * Added the support for IList with nullable items to the client protocol.
 https://github.com/hazelcast/hazelcast/pull/17690[#17690]
-* Added the derivation of result types for aggregate `SUM` and `AVG`
-operations in the SQL engine.
-https://github.com/hazelcast/hazelcast/pull/17669[#17669]
 * Improved the robustness of the diagnostics log writer and its plugins.
 https://github.com/hazelcast/hazelcast/pull/17665[#17665]
 * Added the client name tag to the client related metrics.
 https://github.com/hazelcast/hazelcast/pull/17654[#17654]
-* Added the support for `DEFAULT` in the SQL expressions.
-https://github.com/hazelcast/hazelcast/pull/17625[#17625]
 * Added a check for IMap `READ` permissions for the maps involved in the
 SQL query executions.
 https://github.com/hazelcast/hazelcast/pull/17612[#17612]
@@ -103,13 +107,10 @@ https://github.com/hazelcast/hazelcast/pull/17561[#17561]
 parser; all mismatched/unapplied configuration entries coming from
 environment variables or system properties are now logged.
 https://github.com/hazelcast/hazelcast/pull/17559[#17559]
-* Upgraded the Maven plugin dependencies.
-https://github.com/hazelcast/hazelcast/pull/17536[#17536]
-* Improved the performance of the `SqlResult.close()` operation
-by not creating an exception object when the SQL result is already closed.
-The exception is created only if the user calls close on
-the result set that is not closed yet.
-https://github.com/hazelcast/hazelcast/pull/17549[#17549]
+* Updated the `jackson.version` to 2.11.2 and
+`SnakeYAML` to 2.1.
+https://github.com/hazelcast/hazelcast/pull/17484[#17484],
+https://github.com/hazelcast/hazelcast/pull/17446[#17446]
 * Added support for the merge operation in IMap.
 https://github.com/hazelcast/hazelcast/pull/17419[#17419]
 * Added support for publishing CP Subsystem and CP data structure
@@ -126,35 +127,26 @@ https://github.com/hazelcast/hazelcast/pull/17318[#17318]
 https://github.com/hazelcast/hazelcast/issues/17287[#17287]
 * Added support for advanced persistent memory configuration.
 https://github.com/hazelcast/hazelcast/pull/17282[#17282]
+* Added the statistics for schedule and durable executor services,
+and for the executor of offloaded entry processors to be
+monitored by Management Center.
+https://github.com/hazelcast/hazelcast/pull/17253[#17253]
 * Cleaned up the noisy initial log messages on Hazelcast startups.
 https://github.com/hazelcast/hazelcast/pull/17243[#17243]
 * Introduced auto-disposable tasks for the scheduled executor service.
 https://github.com/hazelcast/hazelcast/pull/17215[#17215]
-* Added support for configurable priority queues.
-https://github.com/hazelcast/hazelcast/pull/17201[#17201]
 * Parallelized the partition replica migrations so that
 the time needed for rebalancing the partitions after adding
 or removing a member to/from a cluster is reduced.
 https://github.com/hazelcast/hazelcast/pull/17197[#17197]
-* Added support for basic SQL expressions.
-https://github.com/hazelcast/hazelcast/pull/17183[#17183]
 * Added client labels to `ClientEndpointImpl.toString()`
 to simplify the client identification (in addition to client uuid)
 on the Hazelcast member side.
 https://github.com/hazelcast/hazelcast/issues/17178[#17178]
-* Added the statistics entry to phone home, that counts the caches having WAN replication
-configured.
-https://github.com/hazelcast/hazelcast/pull/17143[#17143]
-* Added support for tenant control when creating caches.
+* Added exception handling when creating caches with tenant control.
 https://github.com/hazelcast/hazelcast/pull/17122[#17122]
 * Added support for accessing domain objects without domain classes (`GenericRecord`).
 https://github.com/hazelcast/hazelcast/pull/17105[#17105]
-* Added metric count support for sets, and maps having backup reads enabled,
-query caches, map stores, custom attributes and WAN replication configurations.
-https://github.com/hazelcast/hazelcast/pull/17053[#17053],
-https://github.com/hazelcast/hazelcast/pull/17071[#17071],
-https://github.com/hazelcast/hazelcast/pull/17069[#17069],
-https://github.com/hazelcast/hazelcast/pull/17081[#17081]
 * Added support for `IMap.compute()`.
 https://github.com/hazelcast/hazelcast/pull/17030[#17030]
 * Added support to allow submitting and executing operations while a member
@@ -166,6 +158,8 @@ entry processors.
 https://github.com/hazelcast/hazelcast/pull/16991[#16991]
 * Added `hazelcast-azure` discovery plugin to the `hazelcast-all` module.
 https://github.com/hazelcast/hazelcast/pull/16982[#16982]
+* Introduced CPU thread affinity; threads can have affinity for particular CPUs.
+https://github.com/hazelcast/hazelcast/pull/16971[#16971]
 * Introduced the `ConfigRecognition` API that determines if a
 provided declarative configuration is recognized by the rules defined in a given
 implementation. Along with the API the following three implementations are added:
@@ -177,8 +171,8 @@ https://github.com/hazelcast/hazelcast/pull/16958[#16958]
 * Added the `publishAll()`, `publishAllAsync()` and `publishAsync()`
 methods to ITopic.
 https://github.com/hazelcast/hazelcast/pull/16946[#16946]
-* Made the diagnostics logs more cloud-friendly so that they are sent to
-`stdout` instead of sending to local files.
+* Made the diagnostics logs cloud-friendly so that they
+can also be sent to `stdout` in addition to sending to local files.
 https://github.com/hazelcast/hazelcast/pull/16941[#16941]
 * Improved the mechanism of partition table updates to
 eliminate the latencies when these updates are sent to the clients by a member.
@@ -196,25 +190,10 @@ https://github.com/hazelcast/hazelcast/pull/16864[#16864]
 * Improved the `deleteAll()` (MapStore) and ITopic Javadocs.
 https://github.com/hazelcast/hazelcast/pull/16862[#16862],
 https://github.com/hazelcast/hazelcast/pull/16861[#16861],
-* Introduced the `ServerConnection` and `ClientConnection` interfaces
-that extend `Connection` for cleaning up purposes.
-https://github.com/hazelcast/hazelcast/pull/16849[#16849]
-* Implemented the `root` operator for the SQL engine
-responsible for getting the final result stream.
-https://github.com/hazelcast/hazelcast/issues/16829[#16829]
 * Added support for `IMap.computeIfAbsent()`.
 https://github.com/hazelcast/hazelcast/pull/16808[#16808]
-* Introduced SQL thread pools for query processing.
-https://github.com/hazelcast/hazelcast/issues/16805[#16805]
-* Introduced the network protocol, base executor and row
-interfaces for the SQL engine.
-https://github.com/hazelcast/hazelcast/issues/16799[#16799],
-https://github.com/hazelcast/hazelcast/issues/16762[#16762]
 * Added the `setAll()` and `setAllAsync()` methods for IMap.
 https://github.com/hazelcast/hazelcast/pull/16787[#16787]
-* Added the `writeOrdered()` method to the `Connection` class
-for the purpose of ordered delivery of messages.
-https://github.com/hazelcast/hazelcast/issues/16776[#16776]
 * Added the creation time metric for the executor service.
 https://github.com/hazelcast/hazelcast/pull/16775[#16775]
 * Improved an unclear exception message for credentials.
@@ -224,18 +203,12 @@ changes done on the client protocol side to add the ability
 to add new parameters, methods, services, events and custom types
 to codecs.
 https://github.com/hazelcast/hazelcast/pull/16718[#16718]
-* Added the `offset` parameter that can be used while creating
-inputs in `BufferObjectDataInput`.
-https://github.com/hazelcast/hazelcast/pull/16701[#16701]
 * Introduced the `putAllAsync()` method for MultiMap.
 https://github.com/hazelcast/hazelcast/pull/16698[#16698]
 * Defined metrics for ISet and IList collections.
 https://github.com/hazelcast/hazelcast/pull/16665[#16665]
 * Upgraded log4j2 version to 2.13.0.
 https://github.com/hazelcast/hazelcast/pull/16654[#16654]
-* Renamed MultiMap proxy implementation to follow the established naming convention:
-`ObjectMultiMapProxy` -> `MultiMapProxyImpl`.
-https://github.com/hazelcast/hazelcast/pull/16637[#16637]
 * Improved the `computeIfPresent()` implementation so that now it keeps a
 clone of the old/existing value and uses that for replace/delete operations.
 https://github.com/hazelcast/hazelcast/pull/16636[#16636]
@@ -245,18 +218,13 @@ decrease the noise in the logs when, for example, you have a single-member clust
 https://github.com/hazelcast/hazelcast/pull/16622[#16622]
 * Upgraded the Hazelcast Kubernetes plugin version to 2.0.1.
 https://github.com/hazelcast/hazelcast/pull/16590[#16590]
-* * Added the support for automatically detecting the classloader
+* Added the support for automatically detecting the classloader
 of a type for the user code deployment feature.
 https://github.com/hazelcast/hazelcast/pull/16585[#16585]
 * Made `IMap.putAllAsync()` and `IMap.submitToKeys()` methods public API.
 https://github.com/hazelcast/hazelcast/issues/16449[#16449]
-* Implemented the base type system for SQL: the base SQL data types
-have been defined and mapped to the corresponding Java types.
-Type information is used by executor stages to use the right strategy
-of expression evaluation.
-https://github.com/hazelcast/hazelcast/issues/15241[#15241]
 * Clarified the exception message when you connect to a cluster with an
-invalid group name.
+invalid cluster name.
 https://github.com/hazelcast/hazelcast/issues/15099[#15099]
 * Refactored the check and retry initialization logic of
 `ReplicatedMapProxy` so that they are performed in parallel for different
@@ -272,11 +240,12 @@ https://github.com/hazelcast/hazelcast/issues/11958[#11958]
 [[bc-41]]
 === Breaking Changes
 
+* Starting a standalone Hazelcast instance requires disabling Auto Detection joiner
+(before it required disabling Multicast joiner).
+https://github.com/hazelcast/hazelcast/pull/17112[#17112]
 * In a CP subsystem session, a generic `IllegalStateException` was being thrown when Hazelcast
 is shutdown. Now the same situation throws `HazelcastInstanceNotActiveException`.
 https://github.com/hazelcast/hazelcast/issues/17120[#17120]
-* The `TcpIpConnection` class has been renamed as `ServerConnection`.
-https://github.com/hazelcast/hazelcast/pull/16839[#16839]
 * Implemented and/or overridden the default methods in Java 8 collections,
 such as `computeIfAbsent()`, `forEach()` `compute()` and `replaceAll()` for maps.
 https://github.com/hazelcast/hazelcast/issues/14913[#14913]
@@ -291,9 +260,6 @@ https://github.com/hazelcast/hazelcast/pull/17798[#17798]
 sessions that fail for the reasons other than session expiration and
 wait key cancellation.
 https://github.com/hazelcast/hazelcast/pull/17697[#17697]
-* Fixed an issue where the partition stamp was not being updated after
-the partition version is incremented manually.
-https://github.com/hazelcast/hazelcast/pull/17679[#17679]
 * Fixed an issue where Hazelcast was returning `false` if a client
 is successfully deregistered from any member, but events are still
 delivered for the non-deregistered ones.
@@ -307,8 +273,6 @@ https://github.com/hazelcast/hazelcast/issues/17606[#17606]
 * Fixed an issue where the scheduled executor service's `pending` count
 metric was returning negative values.
 https://github.com/hazelcast/hazelcast/pull/17558[#17558]
-* Fixed an issue where the SQL queries with expressions were failing.
-https://github.com/hazelcast/hazelcast/issues/17554[#17554]
 * Fixed an issue where the caller stacktrace was missing on the
 rethrown async runtime exceptions.
 https://github.com/hazelcast/hazelcast/pull/17546[#17546]
@@ -322,8 +286,6 @@ https://github.com/hazelcast/hazelcast/issues/17441[#17441]
 * Fixed an issue where the custom load balancers
 could not be configured declaratively.
 https://github.com/hazelcast/hazelcast/pull/17415[#17415]
-* Fixed the issue of dangling pointers in global indexes.
-https://github.com/hazelcast/hazelcast/pull/17338[#17338]
 * Fixed a race issue when creating a cache (JCache) using
 multiple methods with the same cache name but having different keys.
 https://github.com/hazelcast/hazelcast/pull/17286[#17286]
@@ -372,7 +334,7 @@ we're missing.
 https://github.com/hazelcast/hazelcast/pull/16755[#16755]
 * Fixed an issue where the type information was missing the Metrics MBeans.
 https://github.com/hazelcast/hazelcast/pull/16747[#16747]
-* Fixed an issue where the RESP API was always requiring the call URLs
+* Fixed an issue where the REST API was always requiring the call URLs
 to end with a slash character.
 https://github.com/hazelcast/hazelcast/pull/16688[#16688]
 * Fixed an issue where the service URL for Eureka could not be set
