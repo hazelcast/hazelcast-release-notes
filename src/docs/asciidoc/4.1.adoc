@@ -66,6 +66,9 @@ the following properties:
 ** `hazelcast.wan.consumer.ack.delay.backoff.multiplier`
 +
 https://github.com/hazelcast/hazelcast/pull/17113[#17113]
+* Implemented a new concurrent High-Density Memory Store index
+for the queries, based on B+ tree that is enabled by default;
+brings better performance for lookup queries and enables SQL queries.
 
 The following are the other improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
