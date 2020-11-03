@@ -36,9 +36,7 @@ in the enterprise edition.
 
 :numbered!:
 
-//include::4.1.adoc[]
-
-include::4.1-BETA-1.adoc[]
+include::4.1.adoc[]
 
 include::4.0.3.adoc[]
 

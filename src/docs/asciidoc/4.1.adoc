@@ -6,21 +6,21 @@
 * **Instance Tracking:** It is a feature which writes a file on the Hazelcast instance startup
 at the configured location. This file contains metadata about the instance, such as version, product name
 and process ID, and it is not deleted on the member shutdown.
-See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/#instance-tracking[Instance Tracking section^].
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#instance-tracking[Instance Tracking section^].
 * **SQL Implementation:** Implemented the SQL engine that
 supports map scans, index scans, projections and filters.
 It also introduces the `hazelcast-sql` module to handle the
 SQL engine's dependencies on Apache Calcite.
-See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/index.html#sql[SQL section^].
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/index.html#sql[SQL section^].
 * **Automatic Detection of Discovery Strategy:** It tries to automatically detect the
 applicable discovery mechanism based on the runtime environment.
-See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/index.html#auto-detection[Auto Detection section^].
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/index.html#auto-detection[Auto Detection section^].
 * **Overriding Configuration:** You can now override the configuration entries
 of your cluster without changing the declarative configuration files (XML/YAML).
-See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/index.html#overriding-configuration[Overriding Configuration section^].
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/index.html#overriding-configuration[Overriding Configuration section^].
 * **Auditlog:** This feature allows observing some important cluster events.
 Auditable events have a unique type ID, and contain a timestamp and importance level.
-See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/index.html#auditlog[Logging Auditable Events section^].
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/index.html#auditlog[Logging Auditable Events section^].
 
 [[enh-41]]
 === Enhancements
@@ -28,18 +28,18 @@ See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/index
 * **Improvements in Partial Network Disconnections:** Introduced properties
 to be configured to detect and resolve the partial network issues among the
 Hazelcast IMDG members.
-See link:https://github.com/hazelcast/hazelcast/pull/16680[#16680^] and the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/#partial-network-partitions[Partial Network Partitions section^].
+See link:https://github.com/hazelcast/hazelcast/pull/16680[#16680^] and the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#partial-network-partitions[Partial Network Partitions section^].
 * **CP Subsystem Listeners:** Added membership and group availability
 listeners for CP Subsystem.
-See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/#cp-subsystem-listeners[CP Subsystem Listeners section^].
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#cp-subsystem-listeners[CP Subsystem Listeners section^].
 * **Trusted Interfaces:** It is now possible to restrict the source IP addresses
 from which the Management Center operations are allowed.
-See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/#limiting-source-addresses[Limiting Source Addresses section^].
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#limiting-source-addresses[Limiting Source Addresses section^].
 * **Out-of-the-Box Kerberos Support:** Introduced support for Kerberos
 authentication protocol which is one of the standard
 solutions for single-sign-on. It also adds the GSSAPI authentication support in
 LDAP configuration.
-See the link:https://docs.hazelcast.org/docs/4.1-BETA-1/manual/html-single/#kerberos-authentication-type[Kerberos Authentication Type section^].
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#kerberos-authentication-type[Kerberos Authentication Type section^].
 * **WAN Throttling Mechanism**: This prevents the WAN consumers from 
 getting overloaded by the WAN producers if transferring the WAN events takes
 less time than processing them in the target cluster. This can be the case with
@@ -51,16 +51,39 @@ the following properties:
 ** `hazelcast.wan.consumer.ack.delay.backoff.multiplier`
 +
 https://github.com/hazelcast/hazelcast/pull/17113[#17113]
-* **Priority Queue:** Added support for 
+* **Priority Queue:** Added support for the queues with comparators. Using Priority
+Queue, you can define items with higher priority to be polled first.
+See the link:https://docs.hazelcast.org/docs/4.1/manual/html-single/#priority-queue[Priority Queue section^].
 
 The following are the other improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
 
+* Added the missing `replicatedmap-permission` support to the
+XML and YAML configuration handlers.
+https://github.com/hazelcast/hazelcast/pull/17812[#17812]
+* Introduced a packet flag to distinguish between the connections of
+members having the same Hazelcast version and different versions.
+https://github.com/hazelcast/hazelcast/pull/17756[#17756]
+* Replaced the word "should" with "must" in the exception messages
+to improve the user focus and indicate obligation rather than advice.
+https://github.com/hazelcast/hazelcast/pull/17710[#17710]
+* Added the `getAndDecrement()` operation support for the `IAtomicLong`
+data structure.
+https://github.com/hazelcast/hazelcast/pull/17699[#17699]
+* Introduced the `mode` configuration attribute for the
+persistent memory. It defines operational mode of it which can be
+either `MOUNTED` or SYSTEM_MEMORY.
+https://github.com/hazelcast/hazelcast/pull/17696[#17696]
 * Added the support for checking duplicate fields when building
 class definitions.
 https://github.com/hazelcast/hazelcast/pull/17682[#17682]
 * Added the support for IList with nullable items to the client protocol.
 https://github.com/hazelcast/hazelcast/pull/17690[#17690]
+* Added the derivation of result types for aggregate `SUM` and `AVG`
+operations in the SQL engine.
+https://github.com/hazelcast/hazelcast/pull/17669[#17669]
+* Improved the robustness of the diagnostics log writer and its plugins.
+https://github.com/hazelcast/hazelcast/pull/17665[#17665]
 * Added the client name tag to the client related metrics.
 https://github.com/hazelcast/hazelcast/pull/17654[#17654]
 * Added the support for `DEFAULT` in the SQL expressions.
@@ -249,8 +272,6 @@ https://github.com/hazelcast/hazelcast/issues/11958[#11958]
 [[bc-41]]
 === Breaking Changes
 
-* Starting a standalone Hazelcast instance requires disabling Auto Detection joiner
-(before it required disabling Multicast joiner). https://github.com/hazelcast/hazelcast/pull/17112[#17112]
 * In a CP subsystem session, a generic `IllegalStateException` was being thrown when Hazelcast
 is shutdown. Now the same situation throws `HazelcastInstanceNotActiveException`.
 https://github.com/hazelcast/hazelcast/issues/17120[#17120]
@@ -263,6 +284,13 @@ https://github.com/hazelcast/hazelcast/issues/14913[#14913]
 [[fixes-41]]
 === Fixes
 
+* Fixed an exception in the `/node-state` REST calls when the member
+is not fully activated.
+https://github.com/hazelcast/hazelcast/pull/17798[#17798]
+* Fixed an issue where Hazelcast was not releasing the acquired lock
+sessions that fail for the reasons other than session expiration and
+wait key cancellation.
+https://github.com/hazelcast/hazelcast/pull/17697[#17697]
 * Fixed an issue where the partition stamp was not being updated after
 the partition version is incremented manually.
 https://github.com/hazelcast/hazelcast/pull/17679[#17679]
@@ -270,6 +298,9 @@ https://github.com/hazelcast/hazelcast/pull/17679[#17679]
 is successfully deregistered from any member, but events are still
 delivered for the non-deregistered ones.
 https://github.com/hazelcast/hazelcast/pull/17646[#17646]
+* Fixed a data loss issue that was happening while promoting a lite member
+to a data member.
+https://github.com/hazelcast/hazelcast/issues/17621[#17621]
 * Fixed an issue where the configuration was not updating entries' time-to-live
 values if the entry processor implements the `Offloadable` interface.
 https://github.com/hazelcast/hazelcast/issues/17606[#17606]
@@ -281,6 +312,9 @@ https://github.com/hazelcast/hazelcast/issues/17554[#17554]
 * Fixed an issue where the caller stacktrace was missing on the
 rethrown async runtime exceptions.
 https://github.com/hazelcast/hazelcast/pull/17546[#17546]
+* Fixed the rendering of diagnostics in case there is an exception
+inside a diagnostics plugin.
+https://github.com/hazelcast/hazelcast/pull/17501[#17501]
 * Fixed an exception that is thrown when using the entry store API and issuing
 a `put` into the IMap for an item which is not in the map but
 exists in the backing store.
@@ -399,3 +433,4 @@ community who worked on this release:
 * https://github.com/the-thing[Marcin L]
 * https://github.com/stefanbirkner[Stefan Birkner]
 * https://github.com/andrewoelfing[André Wölfing]
+* https://github.com/ndeevy[ndeevy]
