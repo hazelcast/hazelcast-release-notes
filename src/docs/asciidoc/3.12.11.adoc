@@ -1,0 +1,34 @@
+== 3.12.11
+
+[[nf-31211]]
+=== New Features
+
+* **Node Aware Partition Grouping:** Added the support of
+partition grouping mechanism in the Hazelcast discovery plugin for Kubernetes.
+You can create partition groups according to the name of the
+node which is provided by this plugin and on which the containers/pods run.
+See the link:https://docs.hazelcast.org/docs/3.12.11/manual/html-single/#node-aware-partition-grouping[NODE_AWARE section] of the IMDG Reference Manual for more information.
+
+[[enh-31211]]
+=== Enhancements
+
+* Added protection against XML External Entity attacks (XXE).
+https://github.com/hazelcast/hazelcast/pull/17754[#17754]
+* Introduced a configuration property to ignore errors during
+enabling the XXE protection. This protection works with JAXP 1.5 (Java 7 Update 40)
+and newer. When an older JAXP implementation is added to
+the classpath, e.g., Xerces and Xalan, an exception is thrown.
+The newly introduced property, namely `hazelcast.ignoreXxeProtectionFailures`,
+allows you to ignore those exceptions.
+See the link:https://docs.hazelcast.org/docs/3.12.11/manual/html-single/#system-properties[System Properties appendix] of the IMDG Reference Manual for more information.
+
+[[fixes-31211]]
+=== Fixes
+
+* Fixed an issue where the Javadoc of `release` methods for session-aware semaphore
+structure was incorrectly addressing "threads" instead of "Hazelcast
+instances".
+https://github.com/hazelcast/hazelcast/pull/17828[#17828]
+* Fixed a data loss issue that was happening while promoting a lite
+member to a data member.
+https://github.com/hazelcast/hazelcast/pull/17758[#17758]
