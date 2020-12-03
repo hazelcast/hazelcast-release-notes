@@ -1,15 +1,38 @@
 == 4.1.1
 
+[[nf-411]]
+=== New Features
+
+* **Node Aware Partition Grouping:** Added the support of
+partition grouping mechanism in the Hazelcast discovery plugin for Kubernetes.
+You can create partition groups according to the name of the
+node which is provided by this plugin and on which the containers/pods run.
+See the link:https://docs.hazelcast.org/docs/4.1.1/manual/html-single/#node-aware-partition-grouping[NODE_AWARE section] of the IMDG Reference Manual for more information.
+
 [[enh-411]]
 === Enhancements
 
-* ???
-See the link:https://docs.hazelcast.org/docs/4.1.1/manual/html-single/#???[??? section].
-* ???.
-https://github.com/hazelcast/hazelcast/pull/???[#???]
+* Introduced a configuration property to ignore errors during
+enabling the XXE protection. This protection works with JAXP 1.5 (Java 7 Update 40)
+and newer. When an older JAXP implementation is added to
+the classpath, e.g., Xerces and Xalan, an exception is thrown.
+The newly introduced property, namely `hazelcast.ignoreXxeProtectionFailures`,
+allows you to ignore those exceptions.
+See the link:https://docs.hazelcast.org/docs/3.12.11/manual/html-single/#system-properties[System Properties appendix] of the IMDG Reference Manual for more information.
+* Updated the Hazelcast Kubernetes dependency to 2.2.
+https://github.com/hazelcast/hazelcast/pull/17825[#17825]
 
 [[fixes-411]]
 === Fixes
 
-* ???.
-https://github.com/hazelcast/hazelcast/issues/???[#???]
+* Fixed an issue where the clients were opening two connections to
+the same member when the member is behind a private network.
+https://github.com/hazelcast/hazelcast/pull/17888[#17888]
+* Fixed an issue where the Javadoc of `release` methods for session-aware semaphore
+structure was incorrectly addressing "threads" instead of "Hazelcast
+instances".
+https://github.com/hazelcast/hazelcast/pull/17827[#17827]
+* Fixed an issue where the Hazelcast Java client was not
+able to resolve the new address of a restarted member, e.g.,
+for a setup in Docker environment.
+https://github.com/hazelcast/hazelcast/issues/17062[#17062]
