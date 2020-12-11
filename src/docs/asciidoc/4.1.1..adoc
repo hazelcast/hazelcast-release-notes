@@ -7,7 +7,7 @@
 partition grouping mechanism in the Hazelcast discovery plugin for Kubernetes.
 You can create partition groups according to the name of the
 node which is provided by this plugin and on which the containers/pods run.
-See the link:https://docs.hazelcast.org/docs/4.1.1/manual/html-single/#node-aware-partition-grouping[NODE_AWARE section] of the IMDG Reference Manual for more information.
+See the link:https://docs.hazelcast.org/docs/4.1.1/manual/html-single/#node-aware-partition-grouping[NODE_AWARE section^] of the IMDG Reference Manual for more information.
 
 [[enh-411]]
 === Enhancements
@@ -18,9 +18,14 @@ and newer. When an older JAXP implementation is added to
 the classpath, e.g., Xerces and Xalan, an exception is thrown.
 The newly introduced property, namely `hazelcast.ignoreXxeProtectionFailures`,
 allows you to ignore those exceptions.
-See the link:https://docs.hazelcast.org/docs/3.12.11/manual/html-single/#system-properties[System Properties appendix] of the IMDG Reference Manual for more information.
-* Updated the Hazelcast Kubernetes dependency to 2.2.
-https://github.com/hazelcast/hazelcast/pull/17825[#17825]
+See the link:https://docs.hazelcast.org/docs/4.1.1/manual/html-single/#system-properties[System Properties appendix^] of the IMDG Reference Manual for more information.
+* Updated the Hazelcast Kubernetes plugin dependency to 2.2.1.
+https://github.com/hazelcast/hazelcast/pull/17928[#17928]
+* Separated the `hazelcast-sql` Maven module into `hazelcast-sql-core` and `hazelcast-sql`.
+https://github.com/hazelcast/hazelcast/pull/17922[#17922]
+* Implemented the `IMap.entrySet()` method for the partition ID set.
+https://github.com/hazelcast/hazelcast/pull/17886[#17886]
+
 
 [[fixes-411]]
 === Fixes
