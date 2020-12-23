@@ -102,7 +102,7 @@ to control the lifecycle of the clients on the member side:
 ** `hazelcast.client.cleanup.period.millis`
 ** `hazelcast.client.cleanup.timeout.millis`
 +
-See the link:https://docs.hazelcast.org/docs/4.0/manual/html-single/#client-system-properties[Client System Properties section^].
+See the link:https://docs.hazelcast.org/docs/4.0/manual/html-single/#system-properties[System Properties section^].
 * **Single Thread Hazelcast Clients Performance:** Hazelcast clients have been designed to be
 used by multiple threads; the more threads you throw at it, the better the performance
 (until it is saturated). Now, it has also been optimized for a single thread doing requests:
