@@ -2,13 +2,6 @@
 
 == 3.12
 
-[[bc-312]]
-=== Breaking Changes
-
-* Support for JDK 6 and 7 has been dropped. The minimum Java version
-that Hazelcast supports now is Java 8. See the 
-https://docs.hazelcast.org/docs/3.12/manual/html-single/#supported-jvms[Supports JVMs section].
-
 [[nf-312]]
 === New Features
 
@@ -35,6 +28,14 @@ different protocols. See the
 https://docs.hazelcast.org/docs/3.12/manual/html-single/#advanced-network-configuration[Advanced Network Configuration section].
 * **YAML Configuration Support:** Added the support for configuring Hazelcast
 in YAML. See the https://docs.hazelcast.org/docs/3.12/manual/html-single/#configuring-declaratively-yaml[Configuring Declaratively with YAML section].
+
+[[bc-312]]
+=== Breaking Changes
+
+* Support for JDK 6 and 7 has been dropped. The minimum Java version
+that Hazelcast supports now is Java 8. See the 
+https://docs.hazelcast.org/docs/3.12/manual/html-single/#supported-jvms[Supports JVMs section].
+
 
 [[enh-312]]
 === Enhancements
