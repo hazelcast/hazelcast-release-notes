@@ -1,0 +1,70 @@
+== 4.2
+
+[[nf-42]]
+=== New Features
+
+*_Hazelcast IMDG Open Source New Features:_*
+
+* **???:** ???.
+See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
+
+*_Hazelcast IMDG Enterprise New Features:_*
+
+* **???:** ???.
+See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
+
+
+[[bc-42]]
+=== Breaking Changes
+
+* ???
+https://github.com/hazelcast/hazelcast/pull/???[#???]
+
+[[enh-42]]
+=== Enhancements
+
+*_Hazelcast IMDG Open Source Enhancements:_*
+
+* **???:** ???.
+See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
+
+
+*_Hazelcast IMDG Enterprise Enhancements:_*
+
+* **???:** ???.
+See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
+
+The following are the other improvements performed to solve the enhancement
+issues opened by the Hazelcast customers/team.
+
+* Added the missing `replicatedmap-permission` support to the XML and YAML
+configuration handlers.
+https://github.com/hazelcast/hazelcast/pull/17810[#17810]
+* Replaced `Charset` with `StandardCharsets` to be used in JSON querying.
+https://github.com/hazelcast/hazelcast/pull/17741[#17741]
+* Implemented migration listener for the Java client.
+https://github.com/hazelcast/hazelcast/pull/17713[#17713]
+* Introduced tenant control when creating JCache caches.
+https://github.com/hazelcast/hazelcast/pull/17673[#17673]
+
+[[fixes-42]]
+=== Fixes
+
+* Fixed an issue where the Javadoc of release methods for
+session-aware semaphore structure was incorrectly addressing
+"threads" instead of "Hazelcast instances".
+https://github.com/hazelcast/hazelcast/pull/17823[#17823]
+* Fixed a failure when retrieving the member state before the member becomes ACTIVE
+on Kubernetes using Helm charts.
+https://github.com/hazelcast/hazelcast/pull/17773[#17773]
+
+[[contributors-42]]
+===  Contributors
+
+We would like to thank the contributors from our open source
+community who worked on this release:
+
+* https://github.com/lprimak[lprimak]
+* https://github.com/petprog[Farinu Taiwo]
+* https://github.com/abdullahcevik[Abdullah Cevik]
+* https://github.com/peterjot[Piotr Jasina]
