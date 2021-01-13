@@ -5,6 +5,13 @@
 
 *_Hazelcast IMDG Open Source New Features:_*
 
+* **Node Aware Partition Grouping:** Added the support of
+partition grouping mechanism in the Hazelcast discovery plugin for Kubernetes.
+You can create partition groups according to the name of the node which is
+provided by this plugin and on which the containers/pods run.
+See the https://docs.hazelcast.com/imdg/4.2/clusters/partition-group-configuration.html#node-aware-partition-grouping[NODE_AWARE section]
+of the IMDG Reference Manual for more information.
+
 * **???:** ???.
 See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
 
@@ -17,7 +24,7 @@ See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
 [[bc-42]]
 === Breaking Changes
 
-* ???
+* ???.
 https://github.com/hazelcast/hazelcast/pull/???[#???]
 
 [[enh-42]]
@@ -37,6 +44,22 @@ See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
 The following are the other improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
 
+* Introduced the support of schemas for the SQL public API.
+https://github.com/hazelcast/hazelcast/pull/17953[#17953]
+* Implemented the `IMap.entrySet()` method for the partition ID set.
+https://github.com/hazelcast/hazelcast/pull/17937[#17937]
+* Added the serialization support of `java.util.Optional`.
+https://github.com/hazelcast/hazelcast/pull/17934[#17934]
+* Improved the discovery by external smart clients in the cloud environments:
+the clients now only need to know the address of any member (or that of a load balancer
+if members are exposed via load balancer).
+https://github.com/hazelcast/hazelcast/pull/17895[#17895]
+* Introduced a configuration property to ignore errors during enabling the
+XXE protection. This protection works with JAXP 1.5 (Java 7 Update 40) and newer.
+When an older JAXP implementation is added to the classpath, e.g., Xerces and Xalan,
+an exception is thrown. The newly introduced property, namely `hazelcast.ignoreXxeProtectionFailures`,
+allows you to ignore those exceptions.
+https://github.com/hazelcast/hazelcast/issues/17839[#17839]
 * Added the missing `replicatedmap-permission` support to the XML and YAML
 configuration handlers.
 https://github.com/hazelcast/hazelcast/pull/17810[#17810]
@@ -50,13 +73,53 @@ https://github.com/hazelcast/hazelcast/pull/17673[#17673]
 [[fixes-42]]
 === Fixes
 
+* Fixed the syntax for `inMemoryFormat` variable in the `MapConfig.toString()` method.
+https://github.com/hazelcast/hazelcast/pull/17976[#17976]
+* Fixed several issues when handling the SQL expressions. The fixes
+include not relying on Apache Calcite for inference and coercion anymore and
+introducing custom operand checker implementations provided by every operator.
+https://github.com/hazelcast/hazelcast/pull/17947[#17947]
+* Fixed an issue where the clients were opening two connections
+to the same member when the member is behind a private network.
+https://github.com/hazelcast/hazelcast/pull/17844[#17844]
 * Fixed an issue where the Javadoc of release methods for
 session-aware semaphore structure was incorrectly addressing
 "threads" instead of "Hazelcast instances".
 https://github.com/hazelcast/hazelcast/pull/17823[#17823]
+* Fixed the metrics unit for cache statistics to be declared in
+microseconds.
+https://github.com/hazelcast/hazelcast/pull/17742[#17742]
 * Fixed a failure when retrieving the member state before the member becomes ACTIVE
 on Kubernetes using Helm charts.
 https://github.com/hazelcast/hazelcast/pull/17773[#17773]
+* Fixed an issue where the parsing of configurations for some Hazelcast features, such as 
+Hot Restart and user code deployment, was
+overriding the existing configuration values.
+https://github.com/hazelcast/hazelcast/issues/17675[#17675],
+https://github.com/hazelcast/hazelcast/issues/17681[#17681],
+https://github.com/hazelcast/hazelcast/pull/17885[#17885],
+https://github.com/hazelcast/hazelcast/pull/17917[#17917],
+https://github.com/hazelcast/hazelcast/pull/17923[#17923],
+https://github.com/hazelcast/hazelcast/pull/17924[#17924],
+https://github.com/hazelcast/hazelcast/pull/17940[#17940],
+https://github.com/hazelcast/hazelcast/pull/17945[#17945],
+https://github.com/hazelcast/hazelcast/pull/17946[#17946],
+https://github.com/hazelcast/hazelcast/pull/17875[#17875],
+https://github.com/hazelcast/hazelcast/pull/17878[#17878],
+https://github.com/hazelcast/hazelcast/pull/17969[#17969],
+https://github.com/hazelcast/hazelcast/pull/17971[#17971],
+https://github.com/hazelcast/hazelcast/pull/17972[#17972]
+* Removed `InetSocketAddressCache` from the Java client code
+so that the client can continue to work, while preserving the
+behaviors in a Blue/Green Deployment scenario.
+https://github.com/hazelcast/hazelcast/pull/17239[#17239] 
+
+[[rd-42]]
+=== Removed/Deprecated Features
+
+* The following properties for partition grouping have been deprecated:
+** `hazelcast.partition.group.rack`
+** `hazelcast.partition.group.host`
 
 [[contributors-42]]
 ===  Contributors
@@ -68,3 +131,6 @@ community who worked on this release:
 * https://github.com/petprog[Farinu Taiwo]
 * https://github.com/abdullahcevik[Abdullah Cevik]
 * https://github.com/peterjot[Piotr Jasina]
+* https://github.com/zalintyre[Franz Wimmer]
+* https://github.com/sgflt[Lukáš Kvídera]
+* https://github.com/alekseybeliyb[Aleksey Kaurov]
