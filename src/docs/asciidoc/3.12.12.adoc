@@ -1,0 +1,17 @@
+== 3.12.12
+
+
+[[enh-31212]]
+=== Enhancements
+
+* Updated the version of Hazelcast Kubernetes plugin to 1.5.5.
+https://github.com/hazelcast/hazelcast/pull/17927[#17927]
+
+[[fixes-31212]]
+=== Fixes
+
+* Fixed an issue where the client could not receive an exception; when
+the in-memory format of the map is `NATIVE` and the uploaded user code
+has missing classes (in case the user code deployment feature is used),
+the resulting exception could not be seen on the client side when a map query is run.
+https://github.com/hazelcast/hazelcast/issues/18052[#18052]
