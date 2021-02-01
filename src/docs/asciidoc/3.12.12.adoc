@@ -10,8 +10,9 @@ https://github.com/hazelcast/hazelcast/pull/17927[#17927]
 [[fixes-31212]]
 === Fixes
 
-* Fixed an issue where the client could not receive an exception; when
-the in-memory format of the map is `NATIVE` and the uploaded user code
+* When the in-memory format of a map is `NATIVE` and the uploaded user code
 has missing classes (in case the user code deployment feature is used),
 the resulting exception could not be seen on the client side when a map query is run.
+This was causing the client to hang indefinitely and fixed by improving the
+failure handling for this case.
 https://github.com/hazelcast/hazelcast/issues/18052[#18052]
