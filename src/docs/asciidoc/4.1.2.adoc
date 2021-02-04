@@ -1,27 +1,24 @@
 == 4.1.2
 
-[[enh-412]]
-=== Enhancements
-
-
-* Introduced a configuration property to ignore errors during
-enabling the XXE protection. This protection works with JAXP 1.5 (Java 7 Update 40)
-and newer. When an older JAXP implementation is added to
-the classpath, e.g., Xerces and Xalan, an exception is thrown.
-The newly introduced property, namely `hazelcast.ignoreXxeProtectionFailures`,
-allows you to ignore those exceptions.
-See the link:https://docs.hazelcast.com/imdg/4.1.2/???[???^] of the IMDG Reference Manual for more information.
-* Updated the Hazelcast Kubernetes plugin dependency to 2.2.1.
-https://github.com/hazelcast/hazelcast/pull/17928[#17928]
-* Separated the `hazelcast-sql` Maven module into `hazelcast-sql-core` and `hazelcast-sql`.
-https://github.com/hazelcast/hazelcast/pull/17922[#17922]
-* Implemented the `IMap.entrySet()` method for the partition ID set.
-https://github.com/hazelcast/hazelcast/pull/17886[#17886]
-
-
 [[fixes-412]]
 === Fixes
 
+* Fixed an issue that prohibited Hazelcast from being used as Tomcat session manager
+when it is also deployed in a web application context:
+When a client application that uses Hazelcast tries to connect to the Hazelcast cluster and this
+application's web sessions are persisted using Hazelcast's Tomcat session manager,
+the session manager could not connect to the cluster. This has been
+fixed by improving Hazelcast's service loader mechanism.
+https://github.com/hazelcast/hazelcast/pull/18116[#18116]
+* Fixed an issue where the metrics for map hits statistics in Management Center
+were decreasing as the map entries are being expired.
+https://github.com/hazelcast/hazelcast/pull/18112[#18112]
+* When the in-memory format of a map is `NATIVE` and the uploaded user code
+has missing classes (in case the user code deployment feature is used),
+the resulting exception could not be seen on the client side when a map query is run.
+This was causing the client to hang indefinitely and fixed by improving the
+failure handling for this case.
+https://github.com/hazelcast/hazelcast/pull/18084[#18084]
 * When the user code deployment is used and the classes to be deployed
 have `com.hazelcast` prefix, it was causing failures in other Hazelcast
 products, e.g., Jet. This has been fixed by making use of the context classloader
@@ -31,18 +28,8 @@ https://github.com/hazelcast/hazelcast/pull/17915[#17915]
 was used for both cluster name and group variables. This has
 been fixed by introducing the `-g` parameter for groups.
 https://github.com/hazelcast/hazelcast/pull/17907[#17907]
+* Fixed an issue where the `remove()` and `delete()` operations
+of maps were not updating the local map statistics.
+https://github.com/hazelcast/hazelcast/issues/17750[#17750]
 
 
-
-
-* Fixed an issue where the clients were opening two connections to
-the same member when the member is behind a private network.
-https://github.com/hazelcast/hazelcast/pull/17888[#17888]
-* Fixed an issue where the Javadoc of `release` methods for session-aware semaphore
-structure was incorrectly addressing "threads" instead of "Hazelcast
-instances".
-https://github.com/hazelcast/hazelcast/pull/17827[#17827]
-* Fixed an issue where the Hazelcast Java client was not
-able to resolve the new address of a restarted member, e.g.,
-for a setup in Docker environment.
-https://github.com/hazelcast/hazelcast/issues/17062[#17062]
