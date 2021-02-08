@@ -1,5 +1,7 @@
 == 3.12.12
 
+IMPORTANT: Starting with Hazelcast IMDG 3.12, the Hazelcast IMDG download package does not include
+the documentation; please see https://docs.hazelcast.com/home/index.html.
 
 [[enh-31212]]
 === Enhancements
