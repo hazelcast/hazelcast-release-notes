@@ -73,9 +73,6 @@ read some types, e.g., `decimal`. With this new mechanism, a new custom codec `S
 has been introduced that serializes values using a custom built-in list serializer
 depending on the type of the column.
 https://github.com/hazelcast/hazelcast/pull/18089[#18089]
-* Added the `PLACEMENT_AWARE` partition grouping type to form partition
-groups based on the placement metadata of virtual machines assigned by cloud providers.
-https://github.com/hazelcast/hazelcast/pull/18048[#18048]
 * Added the ability to cancel queries on the client side when there are active requests sent to
 the member; this enhancement facilitates the future implementation of a non-blocking
 SQL client handler.
@@ -194,7 +191,7 @@ https://github.com/hazelcast/hazelcast/pull/17239[#17239]
 [[rd-42]]
 === Removed/Deprecated Features
 
-* The following properties for partition grouping have been deprecated:
+* The following system properties have been deprecated:
 ** `hazelcast.partition.group.rack`
 ** `hazelcast.partition.group.host`
 ** `hazelcast.hotrestart.free.native.memory.percentage`
