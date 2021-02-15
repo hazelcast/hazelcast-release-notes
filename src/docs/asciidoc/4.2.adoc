@@ -11,15 +11,15 @@ You can create partition groups according to the name of the node which is
 provided by this plugin and on which the containers/pods run.
 See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/partition-group-configuration.html#node-aware-partition-grouping[NODE_AWARE section]
 of the IMDG Reference Manual for more information.
+* **Placement Aware Partition Grouping:** Added the support of
+partition grouping mechanism in the Hazelcast discovery plugin for AWS.
+You can group members according to their placement metadata provided by the cloud providers,
+such as rack, fault domain, power sources, network, and resources of a virtual machine in a zone.
+See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/partition-group-configuration.html#placement-aware[PLACEMENT_AWARE section]
+of the IMDG Reference Manual for more information.
 * **Dynamic Log Level Support**: Added the support of changing Hazelcast log levels
 without restarting cluster members.
 See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/logging-configuration.html#dynamically-changing-log-levels[Dynamically Changing Log Levels section].
-
-*_Hazelcast IMDG Enterprise New Features:_*
-
-* **???:** ???.
-See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
-
 
 [[bc-42]]
 === Breaking Changes
@@ -56,24 +56,13 @@ https://github.com/hazelcast/hazelcast/pull/18094[#18094]
 [[enh-42]]
 === Enhancements
 
-*_Hazelcast IMDG Open Source Enhancements:_*
-
-* **???:** ???.
-See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
-
-
-*_Hazelcast IMDG Enterprise Enhancements:_*
-
-* **???:** ???.
-See the link:https://docs.hazelcast.com/imdg/4.2/#.html[ chapter^].
-
-The following are the other improvements performed to solve the enhancement
+The following are the improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
 
 * Added the support of non-nullable columns for the SQL service.
 https://github.com/hazelcast/hazelcast/pull/18114[#18114]
 * Introduced a configuration option (`per-entry-stats-enabled`) for retrieving per-entry
-statistics of a map.
+statistics of a map, which is disabled by default.
 https://github.com/hazelcast/hazelcast/pull/18093[#18093]
 * Implemented the fetch and offset SQL clauses without
 pushing the operator on the individual member.
@@ -100,7 +89,7 @@ https://github.com/hazelcast/hazelcast/pull/18013[#18013]
 https://github.com/hazelcast/hazelcast/pull/17997[#17997]
 * Introduced a new SQL threading model to improve its performance.
 https://github.com/hazelcast/hazelcast/pull/17985[#17985]
-* Added the ability to override Hazelcast's default serializers.
+* Added the ability to override Hazelcast's built-in serializers.
 https://github.com/hazelcast/hazelcast/pull/17958[#17958]
 * Introduced the support of schemas for the SQL public API.
 https://github.com/hazelcast/hazelcast/pull/17953[#17953]
