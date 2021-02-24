@@ -3,6 +3,13 @@
 [[fixes-412]]
 === Fixes
 
+* Fixed an issue where the Java client was not receiving membership events
+when a member with Hot Restart Persistence is restarted.
+https://github.com/hazelcast/hazelcast/pull/18268[#18268]
+* Fixed an issue where the Near Cache configuration of a map in client
+was not the same after the client is recreated with the
+same client failover configuration.
+https://github.com/hazelcast/hazelcast/pull/18166[#18166]
 * Fixed an issue that prohibited Hazelcast from being used as Tomcat session manager
 when it is also deployed in a web application context:
 When a client application that uses Hazelcast tries to connect to the Hazelcast cluster and this
@@ -19,6 +26,9 @@ the resulting exception could not be seen on the client side when a map query is
 This was causing the client to hang indefinitely and fixed by improving the
 failure handling for this case.
 https://github.com/hazelcast/hazelcast/pull/18084[#18084]
+* Fixed an issue where the queue items were being delivered more
+than once when they are reproduced after a member leaves the cluster.
+https://github.com/hazelcast/hazelcast/issues/18057[#18057]
 * When the user code deployment is used and the classes to be deployed
 have `com.hazelcast` prefix, it was causing failures in other Hazelcast
 products, e.g., Jet. This has been fixed by making use of the context classloader
