@@ -1050,7 +1050,7 @@ https://github.com/hazelcast/hazelcast/pull/15930[#15930]
 regardless of the eviction configuration. This has
 been fixed: forced eviction now runs only if a map has
 eviction configured. Otherwise, it does not run and throws
-native `OutOfMempryException`.
+native `OutOfMemoryException`.
 https://github.com/hazelcast/hazelcast/pull/16085[#16085]
 * Renamed the `GroupProperty` class as `ClusterProperty`
 due to the `group` -> `cluster` term change.
