@@ -5,6 +5,7 @@
 
 *_Hazelcast IMDG Open Source New Features:_*
 
+
 * **Node Aware Partition Grouping:** Added the support of
 partition grouping mechanism in the Hazelcast discovery plugin for Kubernetes.
 You can create partition groups according to the name of the node which is

@@ -9,7 +9,7 @@ https://github.com/hazelcast/hazelcast/pull/18268[#18268]
 * Fixed an issue where the Near Cache configuration of a map in client
 was not the same after the client is recreated with the
 same client failover configuration.
-https://github.com/hazelcast/hazelcast/pull/18166[#18166]
+https://github.com/hazelcast/hazelcast/pull/18356[#18356]
 * Fixed an issue that prohibited Hazelcast from being used as Tomcat session manager
 when it is also deployed in a web application context:
 When a client application that uses Hazelcast tries to connect to the Hazelcast cluster and this
