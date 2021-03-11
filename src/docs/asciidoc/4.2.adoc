@@ -1,4 +1,4 @@
-== 4.2
+== 4.2-BETA-1
 
 [[nf-42]]
 === New Features
@@ -9,22 +9,22 @@
 By using the newly implemented ORDER BY, LIMIT, and OFFSET constructions, 
 you can see the query results being ordered in ascending or descending fashion, 
 limit the count of results, or skip some results. See the
-https://docs.hazelcast.com/imdg/4.2/sql/select-statement.html#sorting[documentation] for examples.
+https://docs.hazelcast.com/imdg/4.2-BETA-1/sql/select-statement.html#sorting[documentation] for examples.
 * **Node Aware Partition Grouping:** Added the support of
 partition grouping mechanism in the Hazelcast discovery plugin for Kubernetes.
 You can create partition groups according to the name of the node which is
 provided by this plugin and on which the containers/pods run.
-See the https://docs.hazelcast.com/imdg/4.2/clusters/partition-group-configuration.html#node-aware-partition-grouping[NODE_AWARE section]
+See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/partition-group-configuration.html#node-aware-partition-grouping[NODE_AWARE section]
 of the IMDG Reference Manual for more information.
 * **Placement Aware Partition Grouping:** Added the support of
 partition grouping mechanism in the Hazelcast discovery plugin for AWS.
 You can group members according to their placement metadata provided by the cloud providers,
 such as rack, fault domain, power sources, network, and resources of a virtual machine in a zone.
-See the https://docs.hazelcast.com/imdg/4.2/clusters/partition-group-configuration.html#placement-aware[PLACEMENT_AWARE section]
+See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/partition-group-configuration.html#placement-aware[PLACEMENT_AWARE section]
 of the IMDG Reference Manual for more information.
 * **Dynamic Log Level Support**: Added the support of changing Hazelcast log levels
 without restarting cluster members.
-See the https://docs.hazelcast.com/imdg/4.2/clusters/logging-configuration.html#dynamically-changing-log-levels[Dynamically Changing Log Levels section].
+See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/logging-configuration.html#dynamically-changing-log-levels[Dynamically Changing Log Levels section].
 
 [[bc-42]]
 === Breaking Changes
@@ -54,7 +54,7 @@ https://github.com/hazelcast/hazelcast/pull/18100[#18100]
 * The default value for cluster connection timeout for clients has been set as `-1` (infinite timeout):
 This is the timeout value for the client to give up to connect to the current cluster.
 For the default value, the client will not stop trying to connect to the target cluster.
-See https://docs.hazelcast.com/imdg/4.2/clients/java.html#configuring-client-connection-retry[here]
+See https://docs.hazelcast.com/imdg/4.2-BETA-1/clients/java.html#configuring-client-connection-retry[here]
 for more information.
 https://github.com/hazelcast/hazelcast/pull/18094[#18094]
 
@@ -65,7 +65,7 @@ https://github.com/hazelcast/hazelcast/pull/18094[#18094]
 
 * **Per-Entry Statistics of Maps:** Introduced a configuration option (`per-entry-stats-enabled`)
 for retrieving per-entry statistics of a map, which is disabled by default.
-See the https://docs.hazelcast.com/imdg/4.2/data-structures/map.html#accessing-entry-statistics[Accessing Map and Entry statistics section].
+See the https://docs.hazelcast.com/imdg/4.2-BETA-1/data-structures/map.html#accessing-entry-statistics[Accessing Map and Entry statistics section].
 * **Default Serializer Overriding:** Added the ability to override Hazelcast's built-in serializers.
 Also added the serialization support of `java.util.Optional`.
 See the https://docs.hazelcast.com/imdg/4.2-snapshot/serialization/serialization.html[Serialization chapter].
@@ -73,6 +73,30 @@ See the https://docs.hazelcast.com/imdg/4.2-snapshot/serialization/serialization
 The following are the improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
 
+* Added the HTTPS/TLS support for phone home pings.
+https://github.com/hazelcast/hazelcast/pull/18287[#18287]
+* Added the temporal types support for indexes by introducing converters
+for the missing types (`LocalTime`, `LocalDate`, `LocalDateTime` and `OffsetDateTime`)
+https://github.com/hazelcast/hazelcast/pull/18244[#18244]
+* Added the support of bitmap index statistics to be propagated to local
+map statistics.
+https://github.com/hazelcast/hazelcast/pull/18220[#18220]
+* Improved the map store configuration such that it is enabled unless
+you explicitly disable it; this improvement has been introduced to eliminate
+the inconsistencies between map store's declarative and programmatic
+configurations.
+https://github.com/hazelcast/hazelcast/pull/18217[#18217]
+* Implemented the High-Density Metadata Store to store all the metadata
+for on-heap and off-heap storages. This new store is based on `BinaryElasticHashMap`.
+A new type of record called `HDMetadataRecord` has been introduced for
+this purpose that references the key and value part of the metadata.
+https://github.com/hazelcast/hazelcast/pull/18186[#18186]
+* Added the ability to register the class definition of the parent generic record
+and check the class definition compatibility for nested portable fields.
+https://github.com/hazelcast/hazelcast/pull/18180[#18180]
+* Added the `iterator()` and `iterable()` methods with different parameter
+combinations to the map.
+https://github.com/hazelcast/hazelcast/pull/18126[#18126]
 * Added the support of non-nullable columns for the SQL service.
 https://github.com/hazelcast/hazelcast/pull/18114[#18114]
 * Implemented the fetch and offset SQL clauses without
@@ -84,6 +108,8 @@ read some types, e.g., `decimal`. With this new mechanism, a new custom codec `S
 has been introduced that serializes values using a custom built-in list serializer
 depending on the type of the column.
 https://github.com/hazelcast/hazelcast/pull/18089[#18089]
+* Added `Nonnull` annotations to `StreamSerializer`.
+https://github.com/hazelcast/hazelcast/pull/18071[#18071]
 * Added the ability to cancel queries on the client side when there are active requests sent to
 the member; this enhancement facilitates the future implementation of a non-blocking
 SQL client handler.
@@ -128,6 +154,30 @@ https://github.com/hazelcast/hazelcast/pull/14081[#14081]
 [[fixes-42]]
 === Fixes
 
+* Fixed an issue where Hazelcast IMDG was not picking the `hazelcast.xml`
+configuration file from the download package but from the current working
+directory where IMDG has been started.
+https://github.com/hazelcast/hazelcast/pull/18304[#18304]
+* Fixed the race condition occurring during the serialization of writes for the
+copy-on-write data structures.
+https://github.com/hazelcast/hazelcast/pull/18285[#18285]
+* Fixed an issue where the clients, in a blue/green deployment,
+were hanging while reconnecting to the alternative cluster due to
+mishandling of member list.
+https://github.com/hazelcast/hazelcast/pull/18276[#18276]
+* Fixed an issue where the Java client was not receiving membership events
+in its membership listener when a member with Hot Restart Persistence enabled is restarted.
+https://github.com/hazelcast/hazelcast/issues/18234[#18234]
+* Fixed a regression issue: when overlapping wildcard configurations
+are defined declaratively, the most specific one was inheriting
+attributes from the more generic one during parsing.
+https://github.com/hazelcast/hazelcast/pull/18187[#18187]
+* Fixed an issue where the non-UTF characters in a JSON value was
+causing query failures.
+https://github.com/hazelcast/hazelcast/pull/18183[#18183]
+* Fixed an issue where tasks were not running in parallel when
+they are submitted to all the cluster members in some scenarios.
+https://github.com/hazelcast/hazelcast/pull/18107[#18107]
 * Fixed an issue that prohibited Hazelcast from being used as Tomcat session manager
 when it is also deployed in a web application context:
 When a client application that uses Hazelcast tries to connect to the Hazelcast cluster and this
@@ -175,8 +225,10 @@ https://github.com/hazelcast/hazelcast/pull/17773[#17773]
 * Fixed an issue where the parsing of configurations for some Hazelcast features, such as 
 Hot Restart and user code deployment, was
 overriding the existing configuration values.
-https://github.com/hazelcast/hazelcast/issues/17675[#17675],
-https://github.com/hazelcast/hazelcast/issues/17681[#17681],
+https://github.com/hazelcast/hazelcast/pull/18036[#18036],
+https://github.com/hazelcast/hazelcast/pull/18034[#18034],
+https://github.com/hazelcast/hazelcast/pull/17675[#17675],
+https://github.com/hazelcast/hazelcast/pull/17681[#17681],
 https://github.com/hazelcast/hazelcast/pull/17885[#17885],
 https://github.com/hazelcast/hazelcast/pull/17917[#17917],
 https://github.com/hazelcast/hazelcast/pull/17923[#17923],
@@ -209,10 +261,13 @@ https://github.com/hazelcast/hazelcast/pull/17239[#17239]
 We would like to thank the contributors from our open source
 community who worked on this release:
 
-* https://github.com/lprimak[lprimak]
+* https://github.com/lprimak[Lenny Primak]
 * https://github.com/petprog[Farinu Taiwo]
 * https://github.com/abdullahcevik[Abdullah Cevik]
 * https://github.com/peterjot[Piotr Jasina]
 * https://github.com/zalintyre[Franz Wimmer]
 * https://github.com/sgflt[Lukáš Kvídera]
 * https://github.com/alekseybeliyb[Aleksey Kaurov]
+* https://github.com/aaronriekenberg[Aaron Riekenberg]
+* https://github.com/TomaszGaweda[Tomasz Gaweda]
+
