@@ -73,8 +73,23 @@ See the https://docs.hazelcast.com/imdg/4.2-snapshot/serialization/serialization
 The following are the improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
 
-* Added the HTTPS/TLS support for phone home pings.
+* Added support of named parameters in SQL's `HazelcastFunction`.
+https://github.com/hazelcast/hazelcast/pull/18328[#18328]
+* Added the HTTPS/TLS support for phone home pings. Also enhanced the phone home data
+by adding the following information:
+** Java classpath on which the member runs
+** Detailed client information such as total connection durations and client versions
+** Total number of created proxies for each distributed object service
++
+https://github.com/hazelcast/hazelcast/pull/18337[#18337],
+https://github.com/hazelcast/hazelcast/pull/18326[#18326],
+https://github.com/hazelcast/hazelcast/pull/18307[#18307],
 https://github.com/hazelcast/hazelcast/pull/18287[#18287]
+* Improved the `LIKE` query predicate so that it now supports indexes.
+https://github.com/hazelcast/hazelcast/pull/18289[#18289]
+* Added `management-permission` to the client permissions that defines which
+Management Center client principals/endpoints are allowed to perform management tasks.
+https://github.com/hazelcast/hazelcast/pull/18264[#18264]
 * Added the temporal types support for indexes by introducing converters
 for the missing types (`LocalTime`, `LocalDate`, `LocalDateTime` and `OffsetDateTime`)
 https://github.com/hazelcast/hazelcast/pull/18244[#18244]
@@ -94,6 +109,10 @@ https://github.com/hazelcast/hazelcast/pull/18186[#18186]
 * Added the ability to register the class definition of the parent generic record
 and check the class definition compatibility for nested portable fields.
 https://github.com/hazelcast/hazelcast/pull/18180[#18180]
+* Improved the SQL engine so that it attempts to re-use the already deserialized
+values stored in an index; this has been improved the map scan operations
+performance when there is at least one index on an IMap.
+https://github.com/hazelcast/hazelcast/pull/18172[#18172]
 * Added the `iterator()` and `iterable()` methods with different parameter
 combinations to the map.
 https://github.com/hazelcast/hazelcast/pull/18126[#18126]
@@ -121,6 +140,8 @@ the ASC and DESC sortings with limitations.
 https://github.com/hazelcast/hazelcast/pull/18013[#18013]
 * Added the support of `remainder` operation for Hazelcast's SQL service.
 https://github.com/hazelcast/hazelcast/pull/17997[#17997]
+* Added the support of `NOT LIKE` expression to Hazelcast's SQL service.
+https://github.com/hazelcast/hazelcast/pull/17996[#17996]
 * Introduced a new SQL threading model to improve its performance.
 https://github.com/hazelcast/hazelcast/pull/17985[#17985]
 * Introduced the support of schemas for the SQL public API.
@@ -154,6 +175,32 @@ https://github.com/hazelcast/hazelcast/pull/14081[#14081]
 [[fixes-42]]
 === Fixes
 
+* Fixed a regression issue where the locked and expired entry keys could not be
+reached over indexes.
+https://github.com/hazelcast/hazelcast/pull/18386[#18386]
+* Improved the deserialization for indexes: when having multiple indexes on a map,
+each time an entry is put in the map and thus to the index, the entry is
+deserialized for each index instead just once. This was causing performance issues.
+https://github.com/hazelcast/hazelcast/pull/18343[#18343]
+* Fixed an issue where SQL's `ORDER BY` statement was failing if the field is indexed
+and there are other clauses such as `WHERE` in the query.
+https://github.com/hazelcast/hazelcast/pull/18341[#18341]
+* Fixed an issue where `GenericRecord` could not be queried when the
+in-memory format of the map is `OBJECT`.
+https://github.com/hazelcast/hazelcast/issues/18336[#18336]
+* Fixed a discrepancy between the behaviors of index-scan and full-scan in maps; the
+eviction of the idle map entries was not stable in IMDG 4.x series due to this
+discrepancy. 
+https://github.com/hazelcast/hazelcast/pull/18334[#18334]
+* Fixed an issue where the health monitor was logging no values for
+garbage collection metrics.
+https://github.com/hazelcast/hazelcast/pull/18317[#18317]
+* Fixed an issue that occurred when there is Near Cache configured for both the member and
+client sides for the same map and `serialize-keys` option is `false`.
+https://github.com/hazelcast/hazelcast/pull/18312[#18312]
+* Fixed an issue where the transactions was not throwing `TransactionTimeOutException`
+in case of a timeout.
+https://github.com/hazelcast/hazelcast/pull/18305[#18305]
 * Fixed an issue where Hazelcast IMDG was not picking the `hazelcast.xml`
 configuration file from the download package but from the current working
 directory where IMDG has been started.
@@ -165,6 +212,9 @@ https://github.com/hazelcast/hazelcast/pull/18285[#18285]
 were hanging while reconnecting to the alternative cluster due to
 mishandling of member list.
 https://github.com/hazelcast/hazelcast/pull/18276[#18276]
+* Fixed an issue where `CachedQueryEntry` could not be serialized since it didn't
+have a default serializer.
+https://github.com/hazelcast/hazelcast/pull/18238[#18238]
 * Fixed an issue where the Java client was not receiving membership events
 in its membership listener when a member with Hot Restart Persistence enabled is restarted.
 https://github.com/hazelcast/hazelcast/issues/18234[#18234]
@@ -209,6 +259,9 @@ https://github.com/hazelcast/hazelcast/issues/17930[#17930]
 * Fixed an issue where the clients were opening two connections
 to the same member when the member is behind a private network.
 https://github.com/hazelcast/hazelcast/pull/17844[#17844]
+* Fixed an issue where the failures in `SessionAwareSemaphore` was preventing
+the acquired permits from their releases.
+https://github.com/hazelcast/hazelcast/pull/17826[#17826]
 * Fixed an issue where the Javadoc of release methods for
 session-aware semaphore structure was incorrectly addressing
 "threads" instead of "Hazelcast instances".
