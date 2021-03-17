@@ -1,4 +1,4 @@
-== 4.2-BETA-1
+== 4.2
 
 [[nf-42]]
 === New Features
@@ -9,22 +9,22 @@
 By using the newly implemented ORDER BY, LIMIT, and OFFSET constructions, 
 you can see the query results being ordered in ascending or descending fashion, 
 limit the count of results, or skip some results. See the
-https://docs.hazelcast.com/imdg/4.2-BETA-1/sql/select-statement.html#sorting[documentation] for examples.
+https://docs.hazelcast.com/imdg/4.2/sql/select-statement.html#sorting[documentation] for examples.
 * **Node Aware Partition Grouping:** Added the support of
 partition grouping mechanism in the Hazelcast discovery plugin for Kubernetes.
 You can create partition groups according to the name of the node which is
 provided by this plugin and on which the containers/pods run.
-See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/partition-group-configuration.html#node-aware-partition-grouping[NODE_AWARE section]
+See the https://docs.hazelcast.com/imdg/4.2/clusters/partition-group-configuration.html#node-aware-partition-grouping[NODE_AWARE section]
 of the IMDG Reference Manual for more information.
 * **Placement Aware Partition Grouping:** Added the support of
 partition grouping mechanism in the Hazelcast discovery plugin for AWS.
 You can group members according to their placement metadata provided by the cloud providers,
 such as rack, fault domain, power sources, network, and resources of a virtual machine in a zone.
-See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/partition-group-configuration.html#placement-aware[PLACEMENT_AWARE section]
+See the https://docs.hazelcast.com/imdg/4.2/clusters/partition-group-configuration.html#placement-aware[PLACEMENT_AWARE section]
 of the IMDG Reference Manual for more information.
 * **Dynamic Log Level Support**: Added the support of changing Hazelcast log levels
 without restarting cluster members.
-See the https://docs.hazelcast.com/imdg/4.2-BETA-1/clusters/logging-configuration.html#dynamically-changing-log-levels[Dynamically Changing Log Levels section].
+See the https://docs.hazelcast.com/imdg/4.2/clusters/logging-configuration.html#dynamically-changing-log-levels[Dynamically Changing Log Levels section].
 
 [[bc-42]]
 === Breaking Changes
@@ -54,7 +54,7 @@ https://github.com/hazelcast/hazelcast/pull/18100[#18100]
 * The default value for cluster connection timeout for clients has been set as `-1` (infinite timeout):
 This is the timeout value for the client to give up to connect to the current cluster.
 For the default value, the client will not stop trying to connect to the target cluster.
-See https://docs.hazelcast.com/imdg/4.2-BETA-1/clients/java.html#configuring-client-connection-retry[here]
+See https://docs.hazelcast.com/imdg/4.2/clients/java.html#configuring-client-connection-retry[here]
 for more information.
 https://github.com/hazelcast/hazelcast/pull/18094[#18094]
 
@@ -65,7 +65,7 @@ https://github.com/hazelcast/hazelcast/pull/18094[#18094]
 
 * **Per-Entry Statistics of Maps:** Introduced a configuration option (`per-entry-stats-enabled`)
 for retrieving per-entry statistics of a map, which is disabled by default.
-See the https://docs.hazelcast.com/imdg/4.2-BETA-1/data-structures/map.html#accessing-entry-statistics[Accessing Map and Entry statistics section].
+See the https://docs.hazelcast.com/imdg/4.2/data-structures/map.html#accessing-entry-statistics[Accessing Map and Entry statistics section].
 * **Default Serializer Overriding:** Added the ability to override Hazelcast's built-in serializers.
 Also added the serialization support of `java.util.Optional`.
 See the https://docs.hazelcast.com/imdg/4.2-snapshot/serialization/serialization.html[Serialization chapter].
@@ -303,6 +303,9 @@ https://github.com/hazelcast/hazelcast/pull/17239[#17239]
 [[rd-42]]
 === Removed/Deprecated Features
 
+* The Symmetric Encryption feature has been deprecated. You can
+use the TLS/SSL protocol to establish an encrypted communication
+across your Hazelcast cluster.
 * The following system properties have been deprecated:
 ** `hazelcast.partition.group.rack`
 ** `hazelcast.partition.group.host`
