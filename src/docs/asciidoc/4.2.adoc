@@ -51,6 +51,8 @@ See the https://docs.hazelcast.com/imdg/4.2/clusters/logging-configuration.html#
 *** `GenericRecordBuilder.writeUTFArray()`
 +
 https://github.com/hazelcast/hazelcast/pull/18100[#18100]
+* Per-entry statistics of maps now are disabled by default; they were enabled in
+the previous releases. See the <<enh-42, Enhancements>> section below.
 * The default value for cluster connection timeout for clients has been set as `-1` (infinite timeout):
 This is the timeout value for the client to give up to connect to the current cluster.
 For the default value, the client will not stop trying to connect to the target cluster.
@@ -68,7 +70,7 @@ for retrieving per-entry statistics of a map, which is disabled by default.
 See the https://docs.hazelcast.com/imdg/4.2/data-structures/map.html#accessing-entry-statistics[Accessing Map and Entry statistics section].
 * **Default Serializer Overriding:** Added the ability to override Hazelcast's built-in serializers.
 Also added the serialization support of `java.util.Optional`.
-See the https://docs.hazelcast.com/imdg/4.2-snapshot/serialization/serialization.html[Serialization chapter].
+See the https://docs.hazelcast.com/imdg/4.2/serialization/serialization.html[Serialization chapter].
 
 The following are the improvements performed to solve the enhancement
 issues opened by the Hazelcast customers/team.
