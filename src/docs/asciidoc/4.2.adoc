@@ -29,7 +29,10 @@ See the https://docs.hazelcast.com/imdg/4.2/clusters/logging-configuration.html#
 [[bc-42]]
 === Breaking Changes
 
-* Improved the `GenericRecord` and serialization API:
+==== BETA API Changes
+
+* Being in its BETA stage, we improved the `GenericRecord` API, and performed various related changes
+in the serialization API due to these improvements:
 ** `GenericRecord#read()` and `GenericRecord.Builder#write()` methods have been renamed as
 `get()`  and `set()`, respectively.
 ** `GenericRecord.Builder` has been moved to its own class as `GenericRecordBuilder`.
@@ -51,11 +54,20 @@ See the https://docs.hazelcast.com/imdg/4.2/clusters/logging-configuration.html#
 *** `GenericRecordBuilder.writeUTFArray()`
 +
 https://github.com/hazelcast/hazelcast/pull/18100[#18100]
-* Per-entry statistics of maps now are disabled by default; they were enabled in
+
+==== Default Settings Change
+
+* Seeing that getting entry level statistics in a map has not been
+a common use case and it has been creating unnecessary memory overhead that can be otherwise
+used for storing user data, per-entry statistics of maps now are disabled by default; they were enabled in
 the previous releases. See the <<enh-42, Enhancements>> section below.
 * The default value for cluster connection timeout for clients has been set as `-1` (infinite timeout):
 This is the timeout value for the client to give up to connect to the current cluster.
-For the default value, the client will not stop trying to connect to the target cluster.
+For this new default value, the client will not stop trying to connect to the target cluster.
+This change has been made to prevent the clients from shutting down when a cluster is
+unavailable; otherwise (previous default value was 2 minutes), it often meant restarting the whole application.
+The reason for keeping the previous default value has been not to break the backward
+compatibility; with this release we introduced this breaking change which would be better for users.
 See https://docs.hazelcast.com/imdg/4.2/clients/java.html#configuring-client-connection-retry[here]
 for more information.
 https://github.com/hazelcast/hazelcast/pull/18094[#18094]
