@@ -6,7 +6,7 @@
 * Introduced a thread local queue with fixed size to perform the sampling of keys
 so that the uncontrolled growth of this queue is prevented.
 https://github.com/hazelcast/hazelcast/pull/18480[#18480]
-* Updated the version of `hazelcast-kubernetes` dependency to 2.2.2.
+* Updated the Hazelcast Kubernetes plugin dependency version to 2.2.2.
 https://github.com/hazelcast/hazelcast/pull/18331[#18331]
 * Added the ability to register the class definition of the parent generic record and check the class definition compatibility for nested portable fields.
 https://github.com/hazelcast/hazelcast/pull/18284[#18284]
