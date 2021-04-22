@@ -3,8 +3,10 @@
 [[enh-413]]
 === Enhancements
 
-* Introduced a thread local array with fixed size to perform the sampling of keys
-so that the uncontrolled growth of this array is prevented.
+* Introduced a new mechanism in the background expiration tasks; 
+now a thread local array controls the allocations for these tasks
+otherwise which may cause increased garbage collection pressure
+and CPU usage spikes when you use aggressive expiration configurations, e.g., low time-to-live values.
 https://github.com/hazelcast/hazelcast/pull/18480[#18480]
 * Updated the Hazelcast Kubernetes plugin dependency version to 2.2.2.
 https://github.com/hazelcast/hazelcast/pull/18331[#18331]
