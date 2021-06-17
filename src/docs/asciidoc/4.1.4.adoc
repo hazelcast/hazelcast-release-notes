@@ -1,0 +1,19 @@
+== 4.1.4
+
+[[fixes-414]]
+=== Fixes
+
+* Fixed an issue where the updates made to a persistent map store might be lost
+when the write coalescing is enabled.
+https://github.com/hazelcast/hazelcast/pull/18924[#18924]
+* Fixed an issue where the maximum size policy for a map was being ignored
+when the policy is `PER_NODE` and the cluster is scaled down
+(due to losing or killing a member).
+https://github.com/hazelcast/hazelcast/pull/18871[#18871]
+* Fixed an issue where the map's Near Cache was setting its maximum size as 10.000
+even if the configured eviction policy is `NONE`.
+https://github.com/hazelcast/hazelcast/pull/18834[#18834]
+* The LRU eviction policy now takes last access time value into account to prevent
+premature removal of the lately added but not yet accessed map entries.
+https://github.com/hazelcast/hazelcast/pull/18632[#18632]
+
