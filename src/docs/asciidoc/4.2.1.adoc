@@ -3,20 +3,30 @@
 [[enh-421]]
 === Enhancements
 
+* Fixed an issue where the maximum size policy for a map was being ignored
+when the policy is `PER_NODE` and the cluster is scaled down
+(due to losing or killing a member).
+https://github.com/hazelcast/hazelcast/pull/18873[#18873]
+* The log message for infinite cluster connection timeout is clearer now.
+Previously, it was represented as the value of `Long.MAX_VALUE`.
+https://github.com/hazelcast/hazelcast/pull/18648[#18648]
 * Introduced a new mechanism in the background expiration tasks;
 now a thread local array controls the allocations for these tasks
 otherwise which may cause increased garbage collection pressure and
 CPU usage spikes when you use aggressive expiration configurations,
 e.g., low time-to-live values.
 https://github.com/hazelcast/hazelcast/pull/18507[#18507]
-* The log message for infinite cluster connection timeout is clearer now.
-Previously, it was represented as the value of `Long.MAX_VALUE`.
-https://github.com/hazelcast/hazelcast/pull/18648[#18648]
-
 
 [[fixes-421]]
 === Fixes
 
+* Fixed an issue where the updates made to a persistent map store might be lost
+when the write coalescing is enabled.
+https://github.com/hazelcast/hazelcast/pull/18929[#18929]
+* Some merge policies like `LatestUpdateMergePolicy` for the map and WAN replication configurations
+require the https://docs.hazelcast.com/imdg/4.2.1/data-structures/map.html#accessing-entry-statistics[per-entry statistics] to be enabled. Previously, this configuration inconsistency was causing the related member
+to fail at runtime. Now, the Hazelcast member fails to start, i.e., fast fails, in such a case.
+https://github.com/hazelcast/hazelcast/pull/18875[#18875]
 * Fixed an issue where the map's Near Cache was setting its maximum size as 10.000
 even if the configured eviction policy is `NONE`.
 https://github.com/hazelcast/hazelcast/issues/18812[#18812]
