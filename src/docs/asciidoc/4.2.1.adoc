@@ -41,3 +41,11 @@ https://github.com/hazelcast/hazelcast/issues/18812[#18812]
 premature removal of the lately added but not yet accessed map entries.
 https://github.com/hazelcast/hazelcast/pull/18624[#18624]
 
+[contributor-421]
+=== Contributors
+
+We would like to thank the contributors from our open
+source community who worked on this release:
+
+* https://github.com/lprimak[Lenny Primak]
+
