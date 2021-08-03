@@ -1314,6 +1314,11 @@ https://github.com/hazelcast/hazelcast/issues/11300[#11300]
 [[removed-40beta2]]
 ==== 4.0-Beta-2
 
+* Deprecated the following properties:
+** `hazelcast.client.statistics.period.seconds`
+** `hazelcast.client.statistics.enabled`
++
+https://github.com/hazelcast/hazelcast/pull/15963[#15963]
 * Removed the deprecated `SimpleEntryView.evictionCriteriaNumber()`
 method.
 https://github.com/hazelcast/hazelcast/pull/15846[#15846]
