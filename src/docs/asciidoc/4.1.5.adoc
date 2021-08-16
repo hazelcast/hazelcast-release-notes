@@ -3,6 +3,9 @@
 [[fixes-415]]
 === Fixes
 
+* Fixed an issue where a high amount of garbage collection pressure was occurring
+during repartitioning especially when having a high partition count.
+https://github.com/hazelcast/hazelcast/pull/19295[#19295]
 * Fixed an issue where the client state listener was not properly working
 with failover clients (in blue-green deployments); it was failing with
 invalid configuration exception.
