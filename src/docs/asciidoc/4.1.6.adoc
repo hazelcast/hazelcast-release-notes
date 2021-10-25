@@ -1,0 +1,26 @@
+== 4.1.6
+
+[[enh-416]]
+=== Enhancements
+
+* Improved the log message that is displayed when using the `hazelcast.io.selectorMode`
+property to decrease the high CPU usage. The previous misleading message read as
+"Recreated Selector because of possible java/network stack bug". It has been changed
+to "Selector was rebuilt, consider updating Java and/or your network stack drivers".
+https://github.com/hazelcast/hazelcast/pull/19761[#19761]
+* Introduced the `hazelcast.internal.map.expired.key.scan.timeout.nanos` property
+to limit the execution time of the cleanup operations, i.e., entry expiration tasks of a map;
+this is to prevent the increased CPU usage as the partition size grows.
+https://github.com/hazelcast/hazelcast/issues/19663[#19663]
+
+[[fixes-416]]
+=== Fixes
+
+* Hazelcast was executing cluster wide operations when you query
+the state of a member using the health check endpoint - it was causing to kill all the members
+in a cluster; this issue has been fixed.
+https://github.com/hazelcast/hazelcast/pull/19837[#19837]
+* The increment command (`incr`) in the Memcache client
+was returning the ASCII code of the expected result; this interpretation
+issue has been fixed.
+https://github.com/hazelcast/hazelcast/pull/19681[#19681]
