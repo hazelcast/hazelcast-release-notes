@@ -1,0 +1,7 @@
+== 4.0.4
+
+[[enh-404]]
+=== Enhancements
+
+* Updated the version of log4j2 dependency in `pom.xml` to 2.15.0.
+https://github.com/hazelcast/hazelcast/pull/20161[#20161]
