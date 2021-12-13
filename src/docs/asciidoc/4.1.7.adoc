@@ -4,4 +4,4 @@
 === Enhancements
 
 * Updated the version of log4j2 dependency in `pom.xml` to 2.15.0.
-https://github.com/hazelcast/hazelcast/pull/20162[#10162]
+https://github.com/hazelcast/hazelcast/pull/20162[#20162]
