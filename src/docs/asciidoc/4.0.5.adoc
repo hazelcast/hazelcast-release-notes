@@ -1,3 +1,3 @@
 == 4.0.5
 
-For the distributions packages of IMDG, we updated the vulnerable version of log4j2 in Management Center to 2.15.0. No changes were made to the IMDG code.
+For the distributions packages of IMDG, we updated the vulnerable version of log4j2 in Management Center to 2.17.0. No changes were made to the IMDG code.
