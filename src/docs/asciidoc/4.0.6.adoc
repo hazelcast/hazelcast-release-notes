@@ -1,0 +1,63 @@
+== 4.0.6
+
+[[enh-406]]
+=== Enhancements
+
+* Updated log4j2 dependency version to 2.17.0 in Hazelcast’s root `pom.xml`.
+https://github.com/hazelcast/hazelcast/pull/20161[#20161]
+* Updated the Hazelcast Kubernetes plugin dependency version to 2.2.2.
+https://github.com/hazelcast/hazelcast/pull/18330[#18330]
+* Added the support of partition grouping mechanism in the Hazelcast discovery plugin for Kubernetes.
+You can create partition groups according to the name of the node which is provided by this
+plugin and on which the containers/pods run. See the `NODE_AWARE` section of https://docs.hazelcast.com/imdg/4.0/clusters/partition-group-configuration#node-aware-partition-grouping[Partition Grouping].
+https://github.com/hazelcast/hazelcast/pull/17913[#17913]
+* Added protection against XML External Entity attacks (XXE).
+https://github.com/hazelcast/hazelcast/pull/17753[#17753]
+* Introduced a configuration property to ignore errors during enabling the XXE protection.
+This protection works with JAXP 1.5 (Java 7 Update 40) and newer. When an older JAXP
+implementation is added to the classpath, e.g., Xerces and Xalan, an exception is thrown.
+The newly introduced property, namely `hazelcast.ignoreXxeProtectionFailures`, allows you to ignore those exceptions.
+See https://docs.hazelcast.com/imdg/4/system-properties[System Properties] for more information.
+https://github.com/hazelcast/hazelcast/pull/17869[#17869]
+
+[[fixes-406]]
+=== Fixes
+
+* Hazelcast’s memcached implementation was interpreting the number values and parameters for
+`incr` and `decr` wrongly (numbers were being converted into byte arrays instead of decimals).
+This has been fixed by making these commands' implementations strictly follow the memcached protocol specification.
+https://github.com/hazelcast/hazelcast/pull/19680[#19680]
+* Fixed an issue where the client state listener was not properly working with
+failover clients (in blue-green deployments); it was failing with invalid configuration exception.
+https://github.com/hazelcast/hazelcast/pull/19117[#19117]
+* Fixed an issue where the Java client was not receiving membership
+events when a member with Hot Restart Persistence enabled is restarted.
+https://github.com/hazelcast/hazelcast/pull/18269[#18269]
+* The `-c` parameter of the `cp-subsystem.sh` script was used for both
+cluster name and group variables. This has been fixed by introducing the `-g` parameter for groups.
+https://github.com/hazelcast/hazelcast/pull/18149[#18149]
+* Fixed an issue where data was being lost from maps in the event of a member failure in a 3-member cluster with backup count set to `1`.
+This was occurring when lite members are promoted to be data members.
+https://github.com/hazelcast/hazelcast/pull/17757[#17757]
+* Fixed an issue where the service URL for Eureka could not be set using the declarative configuration.
+https://github.com/hazelcast/hazelcast/pull/17744[#17744]
+* When the user code deployment is used and the classes to be deployed have
+`com.hazelcast` prefix, it was causing failures in other Hazelcast products, e.g., Jet.
+This has been fixed by making use of the context classloader when loading such classes.
+https://github.com/hazelcast/hazelcast/pull/17584[#17584]
+* Fixed an issue where the user code deployment feature was failing to work for
+inner-classes when not all the members have the user provided class on their classpaths.
+https://github.com/hazelcast/hazelcast/pull/17576[#17576]
+* Fixed an issue where Hazelcast was failing to load the configuration file
+(`hazelcast.xml` or user-provided files) from the classpath when in development mode for
+frameworks such as Quarkus.
+https://github.com/hazelcast/hazelcast/pull/17538[#17538]
+
+[[removed-406]]
+=== Removed/Deprecated Features
+
+* The following properties have been deprecated:
+** `hazelcast.client.statistics.enabled`
+** `hazelcast.client.statistics.period.seconds`
++
+https://github.com/hazelcast/hazelcast/pull/19235[#19235]

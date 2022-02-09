@@ -64,6 +64,8 @@ include::4.1.1.adoc[]
 
 include::4.1.adoc[]
 
+include::4.0.6.adoc[]
+
 include::4.0.5.adoc[]
 
 include::4.0.4.adoc[]
