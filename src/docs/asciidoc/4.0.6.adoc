@@ -30,12 +30,26 @@ https://github.com/hazelcast/hazelcast/pull/19680[#19680]
 * Fixed an issue where the client state listener was not properly working with
 failover clients (in blue-green deployments); it was failing with invalid configuration exception.
 https://github.com/hazelcast/hazelcast/pull/19117[#19117]
+* There was a discrepancy between index-scan and full-scan. The definition of
+"touching an entry" was different between these two scans, while index-scan shifts expiry time, full-scan doesn’t.
+This behavior of index-scan and full-scan from the perspective of expiry-time shifting has been fixed:
+** Expired entries for both index-scan and full-scan are not shown now.
+** These scans now are not counted as "touching an entry" so no expiry time shifting happens.
++
+https://github.com/hazelcast/hazelcast/pull/18347[#18347]
 * Fixed an issue where the Java client was not receiving membership
 events when a member with Hot Restart Persistence enabled is restarted.
 https://github.com/hazelcast/hazelcast/pull/18269[#18269]
 * The `-c` parameter of the `cp-subsystem.sh` script was used for both
 cluster name and group variables. This has been fixed by introducing the `-g` parameter for groups.
 https://github.com/hazelcast/hazelcast/pull/18149[#18149]
+* Fixed the `DelegatingCompletableFuture` and the `ClientDelegatingFuture` subclass behavior
+when `HazelcastSerializationException` is thrown:
+** Serialization exception is now properly wrapped in `(Execution|Completion)Exception`
+when thrown from `get`, `getNow` or `join` methods.
+** `whenComplete`, `handle` and `exceptionally` can act on `HazelcastSerializationException`.
++
+https://github.com/hazelcast/hazelcast/pull/18140[#18140]
 * Fixed an issue where data was being lost from maps in the event of a member failure in a 3-member cluster with backup count set to `1`.
 This was occurring when lite members are promoted to be data members.
 https://github.com/hazelcast/hazelcast/pull/17757[#17757]
