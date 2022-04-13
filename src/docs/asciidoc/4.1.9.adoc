@@ -16,5 +16,7 @@ https://github.com/hazelcast/hazelcast/pull/21205[#21205]
 * Fixed an issue where the list of members in the cluster was reset to an empty list when member IDs change after a cluster restart:
 this was causing startup failures since Hazelcast could not manage the events due to the empty member list after a restart.
 https://github.com/hazelcast/hazelcast/pull/21181[#21181]
+* Fixed an issue where the statistics like puts and removals were not increasing when these operations are executed through Transactional interface.
+https://github.com/hazelcast/hazelcast/pull/21100[#21100]
 * Fixed an issue where Hazelcast clients, which have only the IP address of a member to connect (but the member also has a hostname), were not able to connect to the cluster.
 https://github.com/hazelcast/hazelcast/pull/20632[#20632]
