@@ -36,6 +36,8 @@ in the enterprise edition.
 
 :numbered!:
 
+include::4.2.5.adoc[]
+
 include::4.2.4.adoc[]
 
 include::4.2.3.adoc[]
@@ -45,6 +47,8 @@ include::4.2.2.adoc[]
 include::4.2.1.adoc[]
 
 include::4.2.adoc[]
+
+include::4.1.9.adoc[]
 
 include::4.1.8.adoc[]
 

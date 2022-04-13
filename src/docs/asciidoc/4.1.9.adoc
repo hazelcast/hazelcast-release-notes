@@ -1,0 +1,20 @@
+== 4.1.9
+
+[[enh-419]]
+=== Enhancements
+
+* Enabled XXE (XML External Entity Reference) protection for `XMLInputFactory`.
+The related issue was reported through https://huntr.dev/bounties/d63972a2-b910-480a-a86b-d1f75d24d563/.
+https://github.com/hazelcast/hazelcast/pull/20943[#20943]
+
+[[fixes-419]]
+=== Fixes
+
+* Fixed an issue where a cluster was unresponsive when you perform a health check to see the members are in the safe state;
+cluster members were hanging in the `REPLICA_NOT_SYNC` state during such health checks.
+https://github.com/hazelcast/hazelcast/pull/21205[#21205]
+* Fixed an issue where the list of members in the cluster was reset to an empty list when member IDs change after a cluster restart:
+this was causing startup failures since Hazelcast could not manage the events due to the empty member list after a restart.
+https://github.com/hazelcast/hazelcast/pull/21181[#21181]
+* Fixed an issue where Hazelcast clients, which have only the IP address of a member to connect (but the member also has a hostname), were not able to connect to the cluster.
+https://github.com/hazelcast/hazelcast/pull/20632[#20632]

@@ -1,0 +1,41 @@
+== 4.2.5
+
+[[enh-425]]
+=== Enhancements
+
+* Introduced a system property for allowing you to audit that all the Hazelcast instances running in your
+environment have the instance tracking file name set correctly in the configuration. See the note in xref:management:instance-tracking.adoc[Instance Tracking].
+https://github.com/hazelcast/hazelcast/pull/19929[#19929]
+* Enabled XXE (XML External Entity Reference) protection for `XMLInputFactory`. The issue was reported through
+https://huntr.dev/bounties/d63972a2-b910-480a-a86b-d1f75d24d563/.
+https://github.com/hazelcast/hazelcast/pull/20942[#20942]
+
+[[fixes-425]]
+=== Fixes
+
+* Fixed an issue where Hazelcast clients, which have only the IP address of a member to connect (but the member also has a hostname), were not able to connect to the cluster.
+https://github.com/hazelcast/hazelcast/pull/20631[#20631]
+* Hazelcast’s memcached implementation was interpreting the number values and parameters for `incr` and `decr` wrongly (numbers were being converted into byte arrays instead of decimals).
+This has been fixed by making these commands' implementations strictly follow the memcached protocol specification.
+https://github.com/hazelcast/hazelcast/pull/19676[#19676]
+* Fixed an issue where the `totalPublishes` statistics for the Reliable Topic data structure were always generated as `0`.
+https://github.com/hazelcast/hazelcast/pull/19656[#19656]
+* Fixed an issue where the `map.clear` and `cache.clear` methods were evicting all entries in all near caches of all the maps in a cluster, not only the map on which these methods are called.
+https://github.com/hazelcast/hazelcast/issues/19501[#19501]
+* Fixed an issue where map entries were never evicted or expired:
+** Let's say you have a map whose entries have both time-to-live and maximum idle durations configured.
+** You are periodically reading the entries at times shorter than these durations. 
++
+In this case, the entries were not evicted or expired according to their time-to-live or maximum idle duration configurations.
++
+You can set the `per-entry-stats-enabled` property to `true` to fix this.
++
+https://github.com/hazelcast/hazelcast/pull/19483[#19483]
+
+[[rdf-425]]
+=== Removed/Deprecated Features
+
+The following system properties have been deprecated:
+
+* `hazelcast.client.statistics.enabled`
+* `hazelcast.client.statistics.period.seconds`
