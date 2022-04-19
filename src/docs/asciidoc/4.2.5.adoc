@@ -13,6 +13,8 @@ https://github.com/hazelcast/hazelcast/pull/20942[#20942]
 [[fixes-425]]
 === Fixes
 
+* Fixed an issue where the statistics like puts and removals were not increasing when these operations are executed through Transactional interface.
+https://github.com/hazelcast/hazelcast/pull/21105[#21105]
 * Fixed an issue where Hazelcast clients, which have only the IP address of a member to connect (but the member also has a hostname), were not able to connect to the cluster.
 https://github.com/hazelcast/hazelcast/pull/20631[#20631]
 * Hazelcast’s memcached implementation was interpreting the number values and parameters for `incr` and `decr` wrongly (numbers were being converted into byte arrays instead of decimals).
