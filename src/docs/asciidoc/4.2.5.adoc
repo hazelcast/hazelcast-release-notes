@@ -1,6 +1,6 @@
 == 4.2.5
 
-If you're using eviction/expiration for maps, you must set the `per-entry-stats-enabled` property to `true`. In previous versions of Hazelcast IMDG, some map entries were not always evicted or expired according to their time-to-live or maximum idle duration configurations.
+If you're using eviction or expiration for maps, you must set the `per-entry-stats-enabled` property to `true` to fix an issue in version 4.2.x where some map entries are not always evicted or expired according to their time-to-live or maximum idle duration configurations.
 
 [[enh-425]]
 === Enhancements
