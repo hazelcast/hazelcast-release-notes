@@ -1,5 +1,7 @@
 == 4.2.5
 
+If you're using eviction or expiration for maps, you must set the `per-entry-stats-enabled` property to `true` to fix an issue in version 4.2.x where some map entries are not always evicted or expired according to their time-to-live or maximum idle duration configurations.
+
 [[enh-425]]
 === Enhancements
 
@@ -9,7 +11,7 @@ https://github.com/hazelcast/hazelcast/pull/19929[#19929]
 * Enabled XXE (XML External Entity Reference) protection for `XMLInputFactory`. The issue was reported through
 https://huntr.dev/bounties/d63972a2-b910-480a-a86b-d1f75d24d563/.
 https://github.com/hazelcast/hazelcast/pull/20942[#20942]
-* The probe level for most of the network related statistics has been changed to "DEBUG" to decrease the pressure on Management Center; now they are not sent to Management Center by default. If you want to see these statistics, you need to set the "hazelcast.metrics.debug.enabled" property to "true.
+* The probe level for most of the network related statistics has been changed to "DEBUG" to decrease the pressure on Management Center; now they are not sent to Management Center by default. If you want to see these statistics, you need to set the "hazelcast.metrics.debug.enabled" property to `true`.
 https://github.com/hazelcast/hazelcast/pull/21275[#21275]
 
 [[fixes-425]]
@@ -24,17 +26,9 @@ This has been fixed by making these commands' implementations strictly follow th
 https://github.com/hazelcast/hazelcast/pull/19676[#19676]
 * Fixed an issue where the `totalPublishes` statistics for the Reliable Topic data structure were always generated as `0`.
 https://github.com/hazelcast/hazelcast/pull/19656[#19656]
-* Fixed an issue where the `map.clear` and `cache.clear` methods were evicting all entries in all near caches of all the maps in a cluster, not only the map on which these methods are called.
+* Fixed an issue where the `map.clear()` and `cache.clear()` methods were evicting all entries in all near caches of all the maps in a cluster, not only the map on which these methods are called.
 https://github.com/hazelcast/hazelcast/issues/19501[#19501]
-* Fixed an issue where map entries were never evicted or expired:
-** Let's say you have a map whose entries have both time-to-live and maximum idle durations configured.
-** You are periodically reading the entries at times shorter than these durations. 
-+
-In this case, the entries were not evicted or expired according to their time-to-live or maximum idle duration configurations.
-+
-You can set the `per-entry-stats-enabled` property to `true` to fix this.
-+
-https://github.com/hazelcast/hazelcast/pull/19483[#19483]
+* Fixed an issue that caused some map entries to remain in Hazelcast even when you configured eviction or expiration. https://github.com/hazelcast/hazelcast/pull/19483[#19483]
 
 [[rdf-425]]
 === Removed/Deprecated Features
