@@ -5,7 +5,7 @@
 
 * Fixed the cluster failure occurred after requesting healthcheck of a member using REST API while the `hazelcast.socket.buffer.direct` property is enabled.
 https://github.com/hazelcast/hazelcast/pull/21702[#21702]
-* Fixed a security vulnerability which is to be published as CVE-2022-36437 on https://cve.mitre.org/.
+* Improved connection handling.
 https://github.com/hazelcast/hazelcast/pull/21643[#21643]
 * Fixed an issue where a cluster could not be formed when security is enabled, various client permissions are set,
 and multiple members are started simultaneously.
