@@ -1,0 +1,26 @@
+== 3.12.13
+
+[[enh-31213]]
+=== Enhancements
+
+* Improved connection handling.
+https://github.com/hazelcast/hazelcast/pull/21885[#21885]
+
+[[fixes-31213]]
+=== Fixes
+
+* Fixed a split-brain recovery issue where the split clusters could not merge due to missing master member
+address. 
+https://github.com/hazelcast/hazelcast/pull/21860[#21860]
+* Fixed an issue that occurred when there is Near Cache configured for both the member and client sides for the same map and `serialize-keys` option is `false`.
+https://github.com/hazelcast/hazelcast/pull/18322[#18322]
+* Fixed an issue where the Java client was not receiving membership events in its membership listener when a member with Hot Restart Persistence enabled is restarted.
+https://github.com/hazelcast/hazelcast/pull/18271[#18271]
+* The difference between the Near Cache configurations before and after a client is recreated with the same client failover configuration is fixed now.
+https://github.com/hazelcast/hazelcast/pull/18168[#18168]
+* Fixed an issue that prohibited Hazelcast from being used as Tomcat session manager when it is
+also deployed in a web application context: When a client application that uses Hazelcast
+tries to connect to the Hazelcast cluster and this application’s web sessions are persisted
+using Hazelcast’s Tomcat session manager, the session manager could not connect to the cluster.
+This has been fixed by improving Hazelcast’s service loader mechanism.
+https://github.com/hazelcast/hazelcast/pull/18119[#18119]
