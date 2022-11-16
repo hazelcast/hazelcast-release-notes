@@ -1,0 +1,19 @@
+== 4.1.10
+
+[[enh-4110]]
+=== Enhancements
+
+* Improved connection handling.
+https://github.com/hazelcast/hazelcast/pull/21644[#21644]
+* To decrease the load on the Management Center for large clusters, the level of network related metrics has been changed to DEBUG. When you need these metrics, you can use the hazelcast.metrics.debug.enabled property.
+https://github.com/hazelcast/hazelcast/pull/21260[#21260]
+
+[[fixes-4110]]
+=== Fixes
+
+* Fixed an issue where replication over WAN was failing on the source cluster members, when there are multiple batch publishers configured in a single WAN replication.
+https://github.com/hazelcast/hazelcast/pull/22498[#22498]
+* Fixed an issue where the cluster was failing to operate since the indexes on backup partitions were removed by `map.ClearBackupOperation`.
+https://github.com/hazelcast/hazelcast/pull/22305[#22305]
+* Fixed an issue where a cluster could not be formed when security is enabled, various client permissions are set, and multiple members are started simultaneously. #21507
+https://github.com/hazelcast/hazelcast/pull/21507[#21507]
