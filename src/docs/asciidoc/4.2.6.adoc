@@ -1,5 +1,11 @@
 == 4.2.6
 
+[[enh-426]]
+=== Enhancements
+
+* Upgraded `jackson-databind` to 2.14.0.
+https://github.com/hazelcast/hazelcast/pull/22391[#22391]
+
 [[fixes-426]]
 === Fixes
 
