@@ -3,6 +3,10 @@
 [[fixes-426]]
 === Fixes
 
+* Fixed an issue where replication over WAN was failing on the source cluster members, when there are multiple batch publishers configured in a single WAN replication.
+https://github.com/hazelcast/hazelcast/pull/22496[#22496]
+* Fixed a memory leak due to incomplete clean-up of backup replica sync operations.
+https://github.com/hazelcast/hazelcast/pull/22406[#22406]
 * Fixed the cluster failure occurred after requesting healthcheck of a member using REST API while the `hazelcast.socket.buffer.direct` property is enabled.
 https://github.com/hazelcast/hazelcast/pull/21702[#21702]
 * Improved connection handling.
