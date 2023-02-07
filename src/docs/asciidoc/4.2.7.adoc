@@ -5,5 +5,5 @@
 
 * Fixed an issue where the JSON Query results were inconsistent, using the data stored as JSON via `HazelcastJsonValue`.
 https://github.com/hazelcast/hazelcast/pull/23454[#23454]
-* Fixed an issue where the WAN replicated entries was expiring on the passive cluster when the entries are accessed on the active cluster.
+* Fixed an issue where the WAN replicated entries were expiring on the passive cluster when the entries are accessed on the active cluster.
 https://github.com/hazelcast/hazelcast/pull/22294[#22294]
