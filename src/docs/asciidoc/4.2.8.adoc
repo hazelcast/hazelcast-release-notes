@@ -1,0 +1,7 @@
+== 4.2.8
+
+[[enh-4.2.8]]
+=== Enhancements
+
+* Updated the Jackson core dependency version to 2.15.1.
+https://github.com/hazelcast/hazelcast/pull/24638[24638]
